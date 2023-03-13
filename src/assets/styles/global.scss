@@ -1,0 +1,35 @@
+@import url('https://fonts.cdnfonts.com/css/montserrat');
+@import url('https://fonts.cdnfonts.com/css/open-sans');
+
+:root {
+    // fonts
+    --montserrat: 'Montserrat', sans-serif;
+    --open-sans: 'Open Sans', sans-serif;
+
+    // element colors
+    --primary: #EB5440;
+    --secondary: #4A4B4C;
+    --tertiary: #E8E8E8;
+    --quaternary: #C3C3C3;
+    --background1: #F6F6F6;
+    --background2: #FFFFFF;
+
+    // text colors
+    --text-primary: rgb(0, 0, 0);
+    --text-secondary: rgb(74, 75, 76);
+    --hyperlink: rgb(6, 12, 194);
+
+
+    --lightGray: #5b5676;
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--background1);
+}
