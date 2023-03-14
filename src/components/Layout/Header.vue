@@ -11,23 +11,26 @@
 
 <style lang="scss" scoped>
 .header {
-    height: 100px;
+    height: 80px;
     background: var(--background2);
 
     &-menu {
         display: flex;
-        gap: 50px;
+        gap: 65px;
         align-items: center;
-        padding: 20px 500px 20px 300px;
+        margin-left: 300px;
+        padding: 20px;
+        width: fit-content;
 
         &-image {
-            height: 50px;
+            height: 45px;
         }
 
         &-links {
             font-family: var(--montserrat);
             font-size: 18px;
-            font-weight: bold
+            font-weight: bold;
+            cursor: pointer;
         }
 
     }

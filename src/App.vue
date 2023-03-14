@@ -1,18 +1,13 @@
 <template>
   <Header />
-  <House />
-  <House />
-  <House />
-  <House />
-  <House />
-  <House />
-  <House />
-  <House />
+  <!-- <HousesList /> -->
+  <ListingForm />
 </template>
 
 <script setup>
 import Header from './components/Layout/Header.vue'
-import House from './components/House.vue'
+import HousesList from './components/HousesList.vue'
+import ListingForm from './components/ListingForm.vue'
 </script>
 
 
