@@ -59,7 +59,7 @@
 
                     </div>
                     <div class="house-tools">
-                        <img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon">
+                        <router-link to="/listing-form"><img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon"></router-link>
                         <router-link to="/house-details/delete"><img src="/png/ic_delete@3x.png" alt="ic_delete" class="house-tools__icon"></router-link>
                     </div>
                 </div>
@@ -82,6 +82,11 @@
 
 <script setup>
 import RecommendationsList from '@/components/RecommendationsList.vue'
+// import { ref } from 'vue'
+
+// const detailsUrl = ref([{
+//     url: '/house-details'
+// }])
 const props = defineProps({
     id: {
         type: Number,

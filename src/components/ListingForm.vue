@@ -1,9 +1,9 @@
 <template>
     <div class="listing">
-        <div class="listing-back">
+        <router-link to="/" class="listing-back">
             <img src="/png/ic_back_grey@3x.png" alt="back" class="listing-back__icon">
             <div class="listing-back__title">Back to overview</div>
-        </div>
+        </router-link>
         <div class="listing-title">Create new listing</div>
         <div class="listing-form">
             <form action="#">
@@ -37,7 +37,7 @@
 
 
                 <label for="defImageBtn" class="listing-form-title">Upload picture (PNG or JPG)*</label><br>
-                <button class="listing-form-image" id="newImageBtn" @click="defaulfBtnActive"></button>
+                <div class="listing-form-block" data-img=""><button class="listing-form-block-image" id="newImageBtn" @click="defaulfBtnActive"></button></div>
                 <input type="file" id="defImageBtn" name="defImageBtn" accept="image/png, image/jpeg"
                     @click="defaulfBtnActive">
                 <br>
@@ -52,14 +52,15 @@
                         <input required class="listing-form-input listing-form-placeholder" type="text" id="size"
                             name="size" placeholder="e.g. 60m2"><br>
                     </div>
-                    <div>
+                    <div class="garage-block">
                         <label required for="garage" class="listing-form-title">Garage*
-                            <select id="garage" name="garage" class="listing-form-input listing-forma">
-                                <option selected>Select</option>
-                                <option>Yes</option>
-                                <option>No</option>
+                            <select id="garage"  name="garage" class="listing-form-input  garage-block-select">
+                                <option disabled selected class="garage-block-option" value="Select">Select</option>
+                                <option class="garage-block-option" value="Yes">Yes</option>
+                                <option class="garage-block-option" value="No">No</option>
                             </select>
                         </label>
+                        <span class='garage-block-arrows'></span>
                     </div>
                     <div><label for=" bedroom" class="listing-form-title">Bedrooms*</label><br>
                         <input required class="listing-form-input listing-form-placeholder" type="text" id="bedroom"
@@ -86,12 +87,28 @@
 </template>
 
 <script setup>
-const defaultBtn = document.querySelector('#defImageBtn')
-const newBtn = document.querySelector('#newImageBtn')
-function defaulfBtnActive() {
-    console.log(defaultBtn)
-    document.getElementById('defImageBtn').click();
-}
+// import { onMounted } from 'vue';
+// const props = defineProps({
+//     url: {
+//         type: String,
+//         required: true,
+//         default: '/'
+//     }
+// })
+
+// onMounted(() => {
+//     console.log('showMessage prop value:', this.url)
+// });
+
+// import { onMounted, ref } from 'vue';
+
+// const defaultBtn = document.querySelector('#defImageBtn')
+// const newBtn = document.querySelector('#newImageBtn')
+// function defaulfBtnActive() {
+//     console.log(defaultBtn)
+//     document.getElementById('defImageBtn').click();
+// }
+
 </script>
 
 <style lang="scss" scoped>
@@ -110,6 +127,8 @@ function defaulfBtnActive() {
         justify-content: flex-start;
         align-items: center;
         gap: 10px;
+        text-decoration: none;
+        cursor: pointer;
 
         &__icon {
             width: 20px;
@@ -172,6 +191,7 @@ function defaulfBtnActive() {
         padding: 15px;
         margin: 10px 0;
         width: -webkit-fill-available;
+        outline: none;
     }
 
     &-two-columns {
@@ -180,17 +200,56 @@ function defaulfBtnActive() {
         gap: 20px;
     }
 
-    &-image {
+    &-block {
         width: 125px;
         height: 125px;
         border: 2px dashed var(--quaternary);
         background: transparent;
 
+        &-image {
+            width: inherit;
+            height: inherit;
+            background: transparent;
+            border: none;
+         }
+    }
+
+    .garage-block {
+        position: relative;
+
+        &-arrows {
+            display: block;
+                position: absolute;
+                background: var(--background2);
+                top: 30px;
+                right: 2px;
+                width: 30px;
+                height: 45px;
+                border-radius: 10px;
+                pointer-events: none;
+        }
+
+        &-arrows::before {
+            content: '< >';
+            position: absolute;
+            top: 12px;
+            right: 5px;
+            font-size: 15px;
+            font-family: var(--open-sans);
+            color: var(--quaternary);
+            font-weight: 600;
+            transform: rotate(90deg);
+        }
+        .garage-block-select option {
+                color: var(--quaternary);
+        }
+
+
+    }
         // &__input {
         //     width: 125px;
         //     height: 125px;
         // }
-    }
 
     &-description {
         height: 150px;
