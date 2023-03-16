@@ -1,5 +1,5 @@
 <template>
-    <div class="house">
+    <router-link to="/house-details" class="house">
         <img src="/png/img_placeholder_house@3x.png" alt="house" class="house-image">
         <div class="house-description">
             <div class="house-description-street">{{ street }}</div>
@@ -20,7 +20,7 @@
             <img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon">
             <img src="/png/ic_delete@3x.png" alt="ic_delete" class="house-tools__icon">
         </div>
-    </div>
+    </router-link>
 </template>
 
 
@@ -59,9 +59,10 @@ const props = defineProps({
 </script>
 <style lang="scss" scoped>
 .house {
-    margin: 10px 300px;
+    margin: 10px;
     padding: 20px;
     width: auto;
+    text-decoration: none;
 
     background: var(--background2);
     border-radius: 10px;
@@ -91,7 +92,8 @@ const props = defineProps({
             color: var(--text-primary)
         }
 
-        &-price {
+        &-price,
+        &-index {
             font-family: var(--open-sans);
             font-size: 18px;
             color: var(--text-secondary)

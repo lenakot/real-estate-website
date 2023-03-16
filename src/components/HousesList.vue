@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import House from './House.vue'
+import House from '@/components/House.vue'
 
 import { ref } from 'vue'
 
@@ -55,5 +55,6 @@ const houses = ref([
 .container {
     width: auto;
     height: auto;
+
 }
 </style>
