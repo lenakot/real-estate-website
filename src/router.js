@@ -3,7 +3,8 @@ import Index from '@/Views/Index.vue'
 import About from '@/Views/About.vue'
 import HouseDetails from '@/Views/HouseDetails.vue'
 import Delete from '@/Views/Delete.vue'
-import Form from '@/Views/Form.vue'
+import CreateNewListing from '@/Views/CreateNewListing.vue'
+import EditListing from '@/Views/EditListing.vue'
 
 
 const router = createRouter({
@@ -20,7 +21,7 @@ const router = createRouter({
             component: About
         },
         {
-            path: '/house-details',
+            path: '/house-details/:id',
             name: 'Detail',
             component: HouseDetails
         },
@@ -30,10 +31,16 @@ const router = createRouter({
             component: Delete
         },
         {
-            path: '/listing-form',
-            name: 'Form',
-            component: Form
+            path: '/create-new-listing',
+            name: 'CreateNewListing',
+            component: CreateNewListing
+        },
+        {
+            path: '/edit-listing/:id',
+            name: 'EditListing',
+            component: EditListing
         }
+
 
         // {
         //     path: '/products/:id',

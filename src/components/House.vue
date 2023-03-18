@@ -1,7 +1,8 @@
 <template>
-    <router-link to="/house-details" class="house">
-        <img src="/png/img_placeholder_house@3x.png" alt="house" class="house-image">
+    <router-link :to="`/house-details/${id}`" class="house">
+        <img :src="`${image}`" :alt="`${street}`" class="house-image">
         <div class="house-description">
+            {{ house }}
             <div class="house-description-street">{{ street }}</div>
             <div class="house-description-price">€{{ price }}</div>
             <div class="house-description-index">{{ index }}</div>
@@ -27,6 +28,9 @@
 <script setup>
 
 const props = defineProps({
+    house: {
+        required:true
+    },
     id: {
         type: Number,
         required: true,
@@ -40,7 +44,7 @@ const props = defineProps({
         required: true,
     },
     index: {
-        type: Number,
+        type: String,
         required: true,
     },
     bedroom: {
@@ -55,7 +59,14 @@ const props = defineProps({
         type: Number,
         required: true,
     },
+    image: {
+        type: String,
+        required: true
+    }
 })
+
+
+
 </script>
 <style lang="scss" scoped>
 .house {

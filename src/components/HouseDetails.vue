@@ -8,19 +8,19 @@
     <div class="house-details-container">
         <div class="house-details">
             <div class="house-details-image">
-                <img class="house-details-image__img" src="/png/img_placeholder_house@3x.png" alt="house">
+                <img class="house-details-image__img" :src="`${image}`" :alt="`${street}`">
             </div>
 
             <div class="house-details-wrapper">
                 <div class="house-details-description">
                     <div class="house-short-description">
-                        <div class="house-details-description-street">Dahliastraat 5</div>
+                        <div class="house-details-description-street">{{street}}</div>
 
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_location@3x.png"
                                     alt="location">
-                                <span class="house-details-description-block__title">1011 AA Amsterdam</span>
+                                <span class="house-details-description-block__title">{{index}} {{city}}</span>
                             </div>
                         </div>
 
@@ -28,47 +28,43 @@
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_price@3x.png" alt="price">
-                                <span class="house-details-description-block__title">500.000</span>
+                                <span class="house-details-description-block__title">{{price}}</span>
                             </div>
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_size@3x.png" alt="size">
-                                <span class="house-details-description-block__title">120m2</span>
+                                <span class="house-details-description-block__title">{{size}}m2</span>
                             </div>
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_construction_date@3x.png"
                                     alt="construction_date">
-                                <span class="house-details-description-block__title">Built in 1990</span>
+                                <span class="house-details-description-block__title">Built in {{construction_date}}</span>
                             </div>
 
                         </div>
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_bed@3x.png" alt="bed">
-                                <span class="house-details-description-block__title">1</span>
+                                <span class="house-details-description-block__title">{{bedroom}}</span>
                             </div>
 
                             <div><img class="house-details-description-block__icon" src="/png/ic_bath@3x.png" alt="bath">
-                                <span class="house-details-description-block__title">1</span>
+                                <span class="house-details-description-block__title">{{bathroom}}</span>
                             </div>
 
                             <div><img class="house-details-description-block__icon" src="/png/ic_garage@3x.png"
                                     alt="garage">
-                                <span class="house-details-description-block__title">Yes</span>
+                                <span class="house-details-description-block__title">{{garage}}</span>
                             </div>
                         </div>
 
                     </div>
                     <div class="house-tools">
-                        <router-link to="/listing-form"><img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon"></router-link>
+                        <router-link to="/edit-listing/:id"><img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon"></router-link>
                         <router-link to="/house-details/delete"><img src="/png/ic_delete@3x.png" alt="ic_delete" class="house-tools__icon"></router-link>
                     </div>
                 </div>
                 <div class="house-details-description-area">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    {{description}}
                 </div>
             </div>
 
@@ -101,7 +97,7 @@ const props = defineProps({
         required: true,
     },
     index: {
-        type: Number,
+        type: String,
         required: true,
     },
     bedroom: {
@@ -121,9 +117,22 @@ const props = defineProps({
         required: true,
     },
     garage: {
+        type: Boolean,
+        required: true,
+    },
+    city: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    image: {
         type: String,
         required: true,
     }
+
 })
 </script>
 <style lang="scss" scoped>

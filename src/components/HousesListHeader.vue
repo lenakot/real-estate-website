@@ -1,12 +1,24 @@
 <template>
     <div class="header">
         <div class="header-title">Houses</div>
-        <router-link class="header-create-list" to="/listing-form">
+        <router-link to="/create-new-listing" class="header-create-list" >
             <img class="header-create-list-image" src="/png/ic_plus_white@3x.png" alt="plus"><span class="header-create-list-text">CREATE NEW</span>
         </router-link>
     </div>
     
 </template>
+
+
+<script setup>
+const props = defineProps({
+    house: {
+        type: Object,
+        default: () => { },
+        requred: true,
+    }
+})
+</script>
+
 
 <style lang="scss" scoped>
 .header {

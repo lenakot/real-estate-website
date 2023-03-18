@@ -9,5 +9,10 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src')
     }
+  },
+  server: {
+    origin: "http://localhost:8080",
+    host: "localhost",
+    port: 8080
   }
 })

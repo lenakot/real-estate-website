@@ -1,10 +1,5 @@
 <template>
     <div class="listing">
-        <router-link to="/" class="listing-back">
-            <img src="/png/ic_back_grey@3x.png" alt="back" class="listing-back__icon">
-            <div class="listing-back__title">Back to overview</div>
-        </router-link>
-        <div class="listing-title">Create new listing</div>
         <div class="listing-form">
             <form action="#">
                 <label for="street" class="listing-form-title">Street name*</label><br>
@@ -87,14 +82,65 @@
 </template>
 
 <script setup>
-// import { onMounted } from 'vue';
-// const props = defineProps({
-//     url: {
-//         type: String,
-//         required: true,
-//         default: '/'
-//     }
-// })
+import { onMounted } from 'vue';
+const props = defineProps({
+    id: {
+        type: Number,
+        required: false,
+    },
+    street: {
+        type: String,
+        required: false,
+    },
+    houseNumber: {
+        type: Number,
+        required: false,
+    },
+    addition: {
+        type: String,
+        required: false,
+    },
+    index: {
+        type: Number,
+        required: false,
+    },
+    city: {
+        type: String,
+        required: false,
+    },
+    image: {
+        type: String,
+        required: false,
+    },
+    price: {
+        type: Number,
+        required: false,
+    },
+    size: {
+        type: Number,
+        required: false,
+    },
+    garage: {
+        type: String,
+        required: false,
+    },
+    bedroom: {
+        type: Number,
+        required: false,
+    },
+    bathroom: {
+        type: Number,
+        required: false,
+    },
+    counstructionDate: {
+        type: Number,
+        required: false,
+    },
+    description: {
+        type: Number,
+        required: false,
+    }
+})
 
 // onMounted(() => {
 //     console.log('showMessage prop value:', this.url)
@@ -120,35 +166,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    padding: 40px 0;
-
-    &-back {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        cursor: pointer;
-
-        &__icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        &__title {
-            font-family: var(--montserrat);
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-    }
-
-    &-title {
-        font-family: var(--montserrat);
-        font-size: 32px;
-        font-weight: 700;
-        color: var(--text-primary);
-    }
+    padding-bottom: 40px;
 
     &-submit {
         background: var(--primary);
