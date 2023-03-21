@@ -1,9 +1,9 @@
 <template>
-    <CreateNewListing/>
-    <ListingForm/>
+    <CreateNewListingHeader/>
+    <NewHouseForm/>
 </template>
 
 <script setup>
-import CreateNewListing from '@/components/CreateNewListing.vue'
-import ListingForm from '@/components/ListingForm.vue'
+import CreateNewListingHeader from '@/components/NewListingHeader.vue'
+import NewHouseForm from '@/components/NewHouseForm.vue'
 </script>
