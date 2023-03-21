@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    margin: 40px 300px;
+    margin: 40px 0;
 }
 
 .listing-back {

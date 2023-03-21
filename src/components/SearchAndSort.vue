@@ -15,7 +15,7 @@
 .search-and-sort-wrapper {
     display: flex;
     justify-content: space-between;
-    margin: 20px 300px;
+    margin: 20px 0;
 }
 
 .search-wrapper {

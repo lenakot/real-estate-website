@@ -1,7 +1,7 @@
 <template>
     <div class="header" ref="headerDiv">
         <div class="header-menu">
-            <router-link to="/"><img src="png/img_logo_dtt@3x.png" alt="logo" class="header-menu-image"></router-link>
+            <router-link to="/"><img src="/png/img_logo_dtt@3x.png" alt="logo" class="header-menu-image"></router-link>
             <router-link to='/' class="header-menu-links">Houses</router-link>
             <router-link to="/about" class="header-menu-links">About</router-link>
         </div>
@@ -46,18 +46,13 @@
             color: var(--text-secondary);
             text-decoration: none;
             cursor: pointer;
-           
         }
 
         &-links[data-current=true] {
-            
-
-
             font-family: var(--montserrat);
             font-size: 18px;
             font-weight: 700;
             color: var(--text-primary);
-            
         }
     }
 }

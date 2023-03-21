@@ -24,7 +24,7 @@ const props = defineProps({
 .header {
     display: flex;
     justify-content: space-between;
-    margin: 40px 300px;
+    margin: 40px 0;
 
     &-title {
         font-family: var(--monserrat);

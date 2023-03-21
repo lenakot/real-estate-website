@@ -28,7 +28,6 @@
 
 <style lang="scss" scoped>
 .about-wrapper {
-    margin: 40px 300px;
     display: flex;
     flex-direction: column;
     gap: 30px;

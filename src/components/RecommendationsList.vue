@@ -9,7 +9,7 @@
 import HousesList from '@/components/HousesList.vue'
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 .wrapper {
     display: flex;
     flex-direction: column;
