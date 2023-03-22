@@ -1,22 +1,23 @@
 <template>
     <div class="house">
-        <img :src="`${image}`" :alt="`${street}`" class="house-image">
+        <img :src="`${house.image}`" :alt="`${house.location.street}`" class="house-image">
         <div class="house-description">
-            <router-link :to="`/house-details/${id}`" class="house-description-street">{{ street }}</router-link>
-            <div class="house-description-price">€{{ price }}</div>
-            <div class="house-description-index">{{ index }}</div>
+            <router-link :to="`/house/${house.id}`" class="house-description-street">{{ house.location.street
+            }}</router-link>
+            <div class="house-description-price">€{{ house.price }}</div>
+            <div class="house-description-index">{{ house.location.zip }}</div>
             <div class="house-description-block">
                 <img class="house-description-block__icon" src="/png/ic_bed@3x.png" alt="bed">
-                <span class="house-description-block__title">{{ bedroom }}</span>
+                <span class="house-description-block__title">{{ house.rooms.bedrooms }}</span>
 
                 <img class="house-description-block__icon" src="/png/ic_bath@3x.png" alt="bath">
-                <span class="house-description-block__title">{{ bathroom }}</span>
+                <span class="house-description-block__title">{{ house.rooms.bathrooms }}</span>
 
                 <img class="house-description-block__icon" src="/png/ic_size@3x.png" alt="size">
-                <span class="house-description-block__title">{{ size }} m2</span>
+                <span class="house-description-block__title">{{ house.size }} m2</span>
             </div>
         </div>
-        <div class="house-tools">
+        <div class="house-tools" v-if="house.madeByMe">
             <img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon">
             <img src="/png/ic_delete@3x.png" alt="ic_delete" class="house-tools__icon">
         </div>
@@ -25,38 +26,14 @@
 
 
 <script setup>
+import { useHousesStore } from '@/stores/houseStore.js'
+
+const housesStore = useHousesStore()
+
 const props = defineProps({
-    id: {
-        type: Number,
-        required: true,
-    },
-    street: {
-        type: String,
-        required: true,
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
-    index: {
-        type: String,
-        required: true,
-    },
-    bedroom: {
-        type: Number,
-        required: true,
-    },
-    bathroom: {
-        type: Number,
-        required: true,
-    },
-    size: {
-        type: Number,
-        required: true,
-    },
-    image: {
-        type: String,
-        required: true
+    house: {
+        type: Object,
+        requared: true
     }
 })
 </script>

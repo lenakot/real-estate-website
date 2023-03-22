@@ -1,20 +1,21 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
+import api from "@/api.js";
 
-export const useHousesStore = defineStore('housesStore', {
-    state: () => ({
-        listfOfHouses: [],
-        isVisibleDeleteBlock: false,
-    }),
-    actions: {
-        // addToCart(product, count) {
-        //     const cartIndex = this.cart.findIndex(el => el.id === product.id)
-        //     if (cartIndex === -1) {
-        //         this.cart.push({ ...product, count })
-        //     }
-        //     console.log(this.cart);
-        // }
-        toogleDeleteBlock() {
-             this.isVisibleDeleteBlock = !this.isVisibleDeleteBlock
-        },
-    }
-})
+export const useHousesStore = defineStore("housesStore", {
+  state: () => ({
+    listfOfHouses: [],
+  }),
+  actions: {
+    async getHousesList() {
+      this.listfOfHouses.value = await api.getListHouses();
+      return this.listfOfHouses.value;
+    },
+    async deleteHouse(id) {
+      await api.deleteHouse(id);
+    },
+    async createNewHouse(house, image) {
+      const newHouse = await api.createHouse(house);
+      await api.uploadImage(newHouse.id, image);
+    },
+  },
+});

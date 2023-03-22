@@ -1,7 +1,7 @@
 <template>
     <div class="listing">
         <div class="listing-form">
-            <form @submit="{ $event.preventDefault(); api.editHouse(house.id, house) }">
+            <form @submit="{ $event.preventDefault(); housesStore.createNewHouse(house, imageFile) }">
                 streetName - {{ house.streetName }}
                 <label for="street" class="listing-form-title">Street name*</label><br>
                 <input required class="listing-form-input listing-form-placeholder" type="text" id="street" name="street"
@@ -35,10 +35,9 @@
 
 
                 <label for="defImageBtn" class="listing-form-title">Upload picture (PNG or JPG)*</label><br>
-                <div class="listing-form-block listing-form-block-active" v-if="imgUrl == ''" ref="imgArea"
-                    @click="uploadImage"></div>
+                <div class="listing-form-block listing-form-block-active" v-if="imgUrl == ''" @click="uploadImage"></div>
                 <div class="listing-form-block" v-else>
-                    <img class="listing-form-block__image" :src='imgUrl' alt="" ref="img">
+                    <img class="listing-form-block__image" :src='imgUrl'>
                     <div class="listing-form-block-remove" @click="deleteImage"></div>
                 </div>
                 <input hidden required type="file" ref="inputFile" @change="displayImage" name="defImageBtn"
@@ -90,16 +89,18 @@
                 <textarea required class="listing-form-input listing-form-placeholder listing-form-description" type="text"
                     id="description" name="description" placeholder="Enter description" v-model="house.description" /><br>
 
-                <input class="listing-submit" v-if='house.streetName' type="submit" value="SAVE">
-                <input class="listing-submit" v-else type="submit" value="POST">
+                <!-- <input class="listing-submit" v-if='house.streetName' type="submit" value="SAVE"> -->
+                <input class="listing-submit" type="submit" value="POST">
             </form>
         </div>
     </div>
 </template>
 
 <script setup>
-import api from '@/api.js'
 import { onUpdated, ref } from 'vue';
+import { useHousesStore } from '@/stores/houseStore.js'
+
+const housesStore = useHousesStore()
 
 const props = defineProps({
     house: {
@@ -109,12 +110,14 @@ const props = defineProps({
 })
 
 const inputFile = ref();
-const imgArea = ref();
-const img = ref();
 const imgUrl = ref('')
+const imageFile = ref(null)
+
 onUpdated(async () => {
-    if (props.house.image !== '')
+    if (props.house.image !== '') {
         imgUrl.value = props.house.image
+    }
+    console.log(props.house)
 })
 
 function uploadImage() {
@@ -123,14 +126,9 @@ function uploadImage() {
 
 function displayImage() {
     const image = inputFile.value.files[0]
+    imageFile.value = image
     if (image.size < 2000000) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            imgUrl.value = reader.result;
-            img.src = imgUrl;
-            img.alt = image.name;
-        }
-        reader.readAsDataURL(image);
+        imgUrl.value = URL.createObjectURL(image)
     } else {
         alert("Image size more than 2MB");
     }
@@ -138,7 +136,6 @@ function displayImage() {
 
 function deleteImage() {
     imgUrl.value = ''
-    img.src = imgUrl;
     inputFile.value.value = ''
     console.log(imgUrl, 'hello')
 }

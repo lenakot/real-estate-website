@@ -5,20 +5,39 @@
             <div class="delete-description">Are you sure you want to delete this listing?<br />
                 This action cannot be undone.</div>
             <div class="delete-buttons">
-                <div class="delete-buttons__button delete-buttons__button__yes">YES, DELETE</div>
-                <router-link to="/house-detail/delete" class="delete-buttons__button delete-buttons__button__no">GO
-                    BACK</router-link>
+                <router-link to="/" @click="housesStore.deleteHouse(house.id)"
+                    class="delete-buttons__button delete-buttons__button__yes">
+                    YES, DELETE</router-link>
+                <div @click="goBack" class="delete-buttons__button delete-buttons__button__no">GO
+                    BACK</div>
             </div>
         </div>
     </div>
 </template>
 
+<script setup>
+import { useHousesStore } from '@/stores/houseStore.js'
+
+const housesStore = useHousesStore()
+const props = defineProps({
+    house: {
+        type: Object,
+        required: true
+    }
+})
+
+const emit = defineEmits(['goBack'])
+
+function goBack() {
+    emit('goBack')
+}
+</script>
 
 <style lang="scss" scoped>
 .wrapper {
     position: fixed;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,6 +45,10 @@
 }
 
 .delete {
+    position: fixed;
+    margin: -40px -300px;
+    top: 50%;
+    left: 50%;
     width: 500px;
     height: auto;
     background: var(--background2);
