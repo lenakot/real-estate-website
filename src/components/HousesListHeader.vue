@@ -1,11 +1,11 @@
 <template>
     <div class="header">
         <div class="header-title">Houses</div>
-        <router-link to="/create-new-listing" class="header-create-list" >
-            <img class="header-create-list-image" src="/png/ic_plus_white@3x.png" alt="plus"><span class="header-create-list-text">CREATE NEW</span>
+        <router-link to="/create-new-listing" class="header-create-list">
+            <img class="header-create-list-image" src="/png/ic_plus_white@3x.png" alt="plus"><span
+                class="header-create-list-text">CREATE NEW</span>
         </router-link>
     </div>
-    
 </template>
 
 
@@ -31,7 +31,8 @@ const props = defineProps({
         font-size: 32px;
         font-weight: 700;
         color: var(--text-primary);
-        }
+    }
+
     &-create-list {
         background: var(--primary);
         border-radius: 10px;
@@ -44,7 +45,7 @@ const props = defineProps({
         text-decoration: none;
         cursor: pointer;
 
-        &-text{
+        &-text {
             color: var(--background2);
             font-family: var(--monserrat);
             font-weight: 700;

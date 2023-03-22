@@ -6,7 +6,8 @@
                 This action cannot be undone.</div>
             <div class="delete-buttons">
                 <div class="delete-buttons__button delete-buttons__button__yes">YES, DELETE</div>
-                <router-link to="/house-details" class="delete-buttons__button delete-buttons__button__no">GO BACK</router-link>
+                <router-link to="/house-detail/delete" class="delete-buttons__button delete-buttons__button__no">GO
+                    BACK</router-link>
             </div>
         </div>
     </div>

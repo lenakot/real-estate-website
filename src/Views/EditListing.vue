@@ -13,7 +13,6 @@ import api from '@/api.js'
 
 const route = useRoute()
 const currentHouse = ref({})
-console.log('1 - ', currentHouse.value)
 
 const regEx = /^(.+?)\s+(\d+)(\w*)$/
 
@@ -49,8 +48,8 @@ onMounted(async () => {
                 constructionYear: house.constructionYear,
                 hasGarage: house.hasGarage,
                 description: house.description,
+                image: house.image,
             }
-            console.log('onmounted editlisting - ', currentHouse.value)
             break
         }
     }

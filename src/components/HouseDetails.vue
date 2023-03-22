@@ -14,13 +14,14 @@
             <div class="house-details-wrapper">
                 <div class="house-details-description">
                     <div class="house-short-description">
-                        <div class="house-details-description-street">{{house.location?.street}}</div>
+                        <div class="house-details-description-street">{{ house.location?.street }}</div>
 
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_location@3x.png"
                                     alt="location">
-                                <span class="house-details-description-block__title">{{house.location?.zip}} {{house.location?.city}}</span>
+                                <span class="house-details-description-block__title">{{ house.location?.zip }}
+                                    {{ house.location?.city }}</span>
                             </div>
                         </div>
 
@@ -28,43 +29,47 @@
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_price@3x.png" alt="price">
-                                <span class="house-details-description-block__title">{{house.price}}</span>
+                                <span class="house-details-description-block__title">{{ house.price }}</span>
                             </div>
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_size@3x.png" alt="size">
-                                <span class="house-details-description-block__title">{{house.size}}m2</span>
+                                <span class="house-details-description-block__title">{{ house.size }}m2</span>
                             </div>
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_construction_date@3x.png"
                                     alt="construction_date">
-                                <span class="house-details-description-block__title">Built in {{house.constructionYear}}</span>
+                                <span class="house-details-description-block__title">Built in
+                                    {{ house.constructionYear }}</span>
                             </div>
 
                         </div>
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_bed@3x.png" alt="bed">
-                                <span class="house-details-description-block__title">{{house.rooms?.bedrooms}}</span>
+                                <span class="house-details-description-block__title">{{ house.rooms?.bedrooms }}</span>
                             </div>
 
                             <div><img class="house-details-description-block__icon" src="/png/ic_bath@3x.png" alt="bath">
-                                <span class="house-details-description-block__title">{{house.rooms?.bathrooms}}</span>
+                                <span class="house-details-description-block__title">{{ house.rooms?.bathrooms }}</span>
                             </div>
 
                             <div><img class="house-details-description-block__icon" src="/png/ic_garage@3x.png"
                                     alt="garage">
-                                <span class="house-details-description-block__title">{{(house.hasGarage ? "Yes" : "No")}}</span>
+                                <span class="house-details-description-block__title">{{ (house.hasGarage ? "Yes" :
+                                    "No") }}</span>
                             </div>
                         </div>
 
                     </div>
                     <div class="house-tools">
-                        <router-link :to="`/edit-listing/${house.id}`"><img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon"></router-link>
-                        <router-link to="/house-details/delete"><img src="/png/ic_delete@3x.png" alt="ic_delete" class="house-tools__icon"></router-link>
+                        <router-link :to="`/edit-listing/${house.id}`"><img src="/png/ic_edit@3x.png" alt="edit"
+                                class="house-tools__icon"></router-link>
+                        <router-link to="/house-details/delete"><img src="/png/ic_delete@3x.png" alt="ic_delete"
+                                class="house-tools__icon"></router-link>
                     </div>
                 </div>
                 <div class="house-details-description-area">
-                    {{house.description}}
+                    {{ house.description }}
                 </div>
             </div>
 

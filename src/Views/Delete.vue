@@ -1,6 +1,6 @@
 <template>
-    <DeleteHouse/>
-    <GrayBackground/>
+    <DeleteHouse />
+    <GrayBackground />
     <HouseDetails />
 </template>
 

@@ -19,13 +19,21 @@ export default {
     },
     async editHouse(id, house) {
         console.log(id, house )
-        // try {
-        //     const response = await HTTP.get(`/houses`)
-        //     console.log(response.data)
+        try {
+            const response = await HTTP.get(`/houses`)
+            console.log(response.data)
             
-        //     return response.data
-        // } catch (e) {
-        //     console.log(e)
-        // }
-    }
+            return response.data
+        } catch (e) {
+            console.log(e)
+        }
+    },
+    // async deletehouse(id) {
+    //     try {
+    //         const response = await HTTP.get('/houses/:id')
+    //         await axios.delete('https://reqres.in/api/posts/1');
+    //     } catch (e) {
+    //         console.log(e)
+    //     }
+    // },
 }

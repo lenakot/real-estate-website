@@ -40,13 +40,6 @@ const router = createRouter({
             name: 'EditListing',
             component: EditListing
         }
-
-
-        // {
-        //     path: '/products/:id',
-        //     name: 'Product',
-        //     component: Product,
-        // }
     ]
 })
 

@@ -1,6 +1,6 @@
 <template>
     <div class="listing">
-        <div class="listing-form" v-if="house.houseNumber">
+        <div class="listing-form">
             <form @submit="{ $event.preventDefault(); api.editHouse(house.id, house) }">
                 streetName - {{ house.streetName }}
                 <label for="street" class="listing-form-title">Street name*</label><br>
@@ -90,8 +90,8 @@
                 <textarea required class="listing-form-input listing-form-placeholder listing-form-description" type="text"
                     id="description" name="description" placeholder="Enter description" v-model="house.description" /><br>
 
-                <input class="listing-submit" type="submit" value="POST">
-                <input class="listing-submit" type="submit" value="SAVE">
+                <input class="listing-submit" v-if='house.streetName' type="submit" value="SAVE">
+                <input class="listing-submit" v-else type="submit" value="POST">
             </form>
         </div>
     </div>
@@ -108,15 +108,14 @@ const props = defineProps({
     }
 })
 
-onUpdated(async () => {
-    console.log("onupdated listingform")
-})
-
-
 const inputFile = ref();
 const imgArea = ref();
 const img = ref();
 const imgUrl = ref('')
+onUpdated(async () => {
+    if (props.house.image !== '')
+        imgUrl.value = props.house.image
+})
 
 function uploadImage() {
     inputFile.value.click();

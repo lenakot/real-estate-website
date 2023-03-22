@@ -18,30 +18,30 @@
 }
 
 .listing-back {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    cursor: pointer;
 
-        &__icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        &__title {
-            font-family: var(--montserrat);
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
+    &__icon {
+        width: 20px;
+        height: 20px;
     }
 
-    .listing-title {
+    &__title {
         font-family: var(--montserrat);
-        font-size: 32px;
-        font-weight: 700;
+        font-size: 16px;
+        font-weight: 600;
         color: var(--text-primary);
     }
+}
+
+.listing-title {
+    font-family: var(--montserrat);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
 </style>
