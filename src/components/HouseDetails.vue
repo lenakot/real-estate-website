@@ -10,7 +10,6 @@
             <div class="house-details-image">
                 <img class="house-details-image__img" :src="`${house.image}`" :alt="`${house.location?.street}`">
             </div>
-
             <div class="house-details-wrapper">
                 <div class="house-details-description">
                     <div class="house-short-description">
@@ -24,8 +23,6 @@
                                     {{ house.location?.city }}</span>
                             </div>
                         </div>
-
-
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_price@3x.png" alt="price">
@@ -41,7 +38,6 @@
                                 <span class="house-details-description-block__title">Built in
                                     {{ house.constructionYear }}</span>
                             </div>
-
                         </div>
                         <div class="house-details-description-block">
                             <div>
@@ -61,11 +57,15 @@
                         </div>
 
                     </div>
-                    <div class="house-tools">
+                    <div class="house-tools" v-if="house.madeByMe">
                         <router-link :to="`/edit-listing/${house.id}`"><img src="/png/ic_edit@3x.png" alt="edit"
                                 class="house-tools__icon"></router-link>
-                        <router-link to="/house-details/delete"><img src="/png/ic_delete@3x.png" alt="ic_delete"
-                                class="house-tools__icon"></router-link>
+                        <div @click="toogleDeleteBlock"><img src="/png/ic_delete@3x.png" alt="ic_delete"
+                                class="house-tools__icon"></div>
+                        <div v-if="isVisibleDeleteBlock">
+                            <DeleteHouse :house='house' @goBack="toogleDeleteBlock" />
+                            <GrayBackground />
+                        </div>
                     </div>
                 </div>
                 <div class="house-details-description-area">
@@ -83,16 +83,21 @@
 
 <script setup>
 import RecommendationsList from '@/components/RecommendationsList.vue'
+import DeleteHouse from '@/components/DeleteHouse.vue'
+import GrayBackground from '@/components/GrayBackground.vue'
+import { ref } from 'vue';
+
 const props = defineProps({
     house: {
         type: Object,
         required: true
     }
 })
-
-
+const isVisibleDeleteBlock = ref(false)
+function toogleDeleteBlock() {
+    isVisibleDeleteBlock.value = !isVisibleDeleteBlock.value
+}
 </script>
-
 
 <style lang="scss" scoped>
 .back-block {
