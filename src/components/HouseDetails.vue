@@ -8,19 +8,19 @@
     <div class="house-details-container">
         <div class="house-details">
             <div class="house-details-image">
-                <img class="house-details-image__img" :src="`${image}`" :alt="`${street}`">
+                <img class="house-details-image__img" :src="`${house.image}`" :alt="`${house.location?.street}`">
             </div>
 
             <div class="house-details-wrapper">
                 <div class="house-details-description">
                     <div class="house-short-description">
-                        <div class="house-details-description-street">{{street}}</div>
+                        <div class="house-details-description-street">{{house.location?.street}}</div>
 
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_location@3x.png"
                                     alt="location">
-                                <span class="house-details-description-block__title">{{index}} {{city}}</span>
+                                <span class="house-details-description-block__title">{{house.location?.zip}} {{house.location?.city}}</span>
                             </div>
                         </div>
 
@@ -28,43 +28,43 @@
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_price@3x.png" alt="price">
-                                <span class="house-details-description-block__title">{{price}}</span>
+                                <span class="house-details-description-block__title">{{house.price}}</span>
                             </div>
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_size@3x.png" alt="size">
-                                <span class="house-details-description-block__title">{{size}}m2</span>
+                                <span class="house-details-description-block__title">{{house.size}}m2</span>
                             </div>
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_construction_date@3x.png"
                                     alt="construction_date">
-                                <span class="house-details-description-block__title">Built in {{construction_date}}</span>
+                                <span class="house-details-description-block__title">Built in {{house.constructionYear}}</span>
                             </div>
 
                         </div>
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_bed@3x.png" alt="bed">
-                                <span class="house-details-description-block__title">{{bedroom}}</span>
+                                <span class="house-details-description-block__title">{{house.rooms?.bedrooms}}</span>
                             </div>
 
                             <div><img class="house-details-description-block__icon" src="/png/ic_bath@3x.png" alt="bath">
-                                <span class="house-details-description-block__title">{{bathroom}}</span>
+                                <span class="house-details-description-block__title">{{house.rooms?.bathrooms}}</span>
                             </div>
 
                             <div><img class="house-details-description-block__icon" src="/png/ic_garage@3x.png"
                                     alt="garage">
-                                <span class="house-details-description-block__title">{{garage}}</span>
+                                <span class="house-details-description-block__title">{{(house.hasGarage ? "Yes" : "No")}}</span>
                             </div>
                         </div>
 
                     </div>
                     <div class="house-tools">
-                        <router-link to="/edit-listing/:id"><img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon"></router-link>
+                        <router-link :to="`/edit-listing/${house.id}`"><img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon"></router-link>
                         <router-link to="/house-details/delete"><img src="/png/ic_delete@3x.png" alt="ic_delete" class="house-tools__icon"></router-link>
                     </div>
                 </div>
                 <div class="house-details-description-area">
-                    {{description}}
+                    {{house.description}}
                 </div>
             </div>
 
@@ -78,66 +78,20 @@
 
 <script setup>
 import RecommendationsList from '@/components/RecommendationsList.vue'
-// import { ref } from 'vue'
-
-// const detailsUrl = ref([{
-//     url: '/house-details'
-// }])
 const props = defineProps({
-    id: {
-        type: Number,
-        required: true,
-    },
-    street: {
-        type: String,
-        required: true,
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
-    index: {
-        type: String,
-        required: true,
-    },
-    bedroom: {
-        type: Number,
-        required: true,
-    },
-    bathroom: {
-        type: Number,
-        required: true,
-    },
-    size: {
-        type: Number,
-        required: true,
-    },
-    construction_date: {
-        type: Number,
-        required: true,
-    },
-    garage: {
-        type: Boolean,
-        required: true,
-    },
-    city: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-        required: true,
-    },
-    image: {
-        type: String,
-        required: true,
+    house: {
+        type: Object,
+        required: true
     }
-
 })
+
+
 </script>
+
+
 <style lang="scss" scoped>
 .back-block {
-    margin: 40px 300px;
+    margin: 40px 0;
 
     &-back {
         display: flex;
@@ -177,17 +131,16 @@ const props = defineProps({
 }
 
 .house-details-container {
-    margin: 40px 300px;
     display: grid;
-    grid-template-columns: 700px 300px;
-    gap: 100px;
+    grid-template-columns: 55% 40%;
+    gap: 50px;
 }
 
 .housesList-wrapper {
     display: flex;
     transform: scale(0.9);
     position: relative;
-    top: -40px;
+    top: -125px;
 }
 
 
@@ -220,7 +173,6 @@ const props = defineProps({
         padding: 20px 0;
         font-family: var(--open-sans);
         font-size: 16px;
-        /* font-weight: 600; */
         color: var(--text-secondary);
     }
 
@@ -256,6 +208,7 @@ const props = defineProps({
         width: 20px;
         height: 20px;
         object-fit: contain;
+        margin-right: 5px;
     }
 
     &__title {
