@@ -28,12 +28,15 @@ export default {
             console.log(e)
         }
     },
-    // async deletehouse(id) {
-    //     try {
-    //         const response = await HTTP.get('/houses/:id')
-    //         await axios.delete('https://reqres.in/api/posts/1');
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // },
+    async deletehouse(house) {
+        await HTTP.delete(`/houses/${house.id}`)
+        // const response = await HTTP.get(`'/houses/${house.id}'`)
+        // console.log(response)
+        // try {
+        //     const response = await HTTP.get('/houses/:id')
+        //     await axios.delete('https://reqres.in/api/posts/1');
+        // } catch (e) {
+        //     console.log(e)
+        // }
+    },
 }
