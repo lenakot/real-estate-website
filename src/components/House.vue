@@ -1,9 +1,8 @@
 <template>
-    <router-link :to="`/house-details/${id}`" class="house">
+    <div class="house">
         <img :src="`${image}`" :alt="`${street}`" class="house-image">
         <div class="house-description">
-            {{ house }}
-            <div class="house-description-street">{{ street }}</div>
+            <router-link :to="`/house-details/${id}`" class="house-description-street">{{ street }}</router-link>
             <div class="house-description-price">€{{ price }}</div>
             <div class="house-description-index">{{ index }}</div>
             <div class="house-description-block">
@@ -14,23 +13,19 @@
                 <span class="house-description-block__title">{{ bathroom }}</span>
 
                 <img class="house-description-block__icon" src="/png/ic_size@3x.png" alt="size">
-                <span class="house-description-block__title">{{ size }}</span>
+                <span class="house-description-block__title">{{ size }} m2</span>
             </div>
         </div>
         <div class="house-tools">
             <img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon">
             <img src="/png/ic_delete@3x.png" alt="ic_delete" class="house-tools__icon">
         </div>
-    </router-link>
+    </div>
 </template>
 
 
 <script setup>
-
 const props = defineProps({
-    house: {
-        required:true
-    },
     id: {
         type: Number,
         required: true,
@@ -64,16 +59,14 @@ const props = defineProps({
         required: true
     }
 })
-
-
-
 </script>
+
+
 <style lang="scss" scoped>
 .house {
     margin: 10px;
     padding: 20px;
     width: auto;
-    text-decoration: none;
 
     background: var(--background2);
     border-radius: 10px;
@@ -100,7 +93,8 @@ const props = defineProps({
             font-family: var(--montserrat);
             font-size: 22px;
             font-weight: bold;
-            color: var(--text-primary)
+            color: var(--text-primary);
+            text-decoration: none;
         }
 
         &-price,
