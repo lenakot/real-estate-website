@@ -15,11 +15,12 @@ onMounted(async () => {
     const housesList = await api.getListHouses();
     const houseId = route.params.id
 
-    for (let house of housesList ) {
+    for (let house of housesList) {
         if (houseId == house.id) {
             currentHouse.value = house
+            break
         }
-}
+    }
 })
 
 

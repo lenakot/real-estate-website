@@ -48,7 +48,6 @@ onMounted(async () => {
                 constructionYear: house.constructionYear,
                 hasGarage: house.hasGarage,
                 description: house.description,
-                image: house.image,
             }
             break
         }
