@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Index from '@/Views/Index.vue'
 import About from '@/Views/About.vue'
 import HouseDetails from '@/Views/HouseDetails.vue'
-import Delete from '@/Views/Delete.vue'
 import CreateNewListing from '@/Views/CreateNewListing.vue'
 import EditListing from '@/Views/EditListing.vue'
 
@@ -21,14 +20,9 @@ const router = createRouter({
             component: About
         },
         {
-            path: '/house-details/:id',
+            path: '/house/:id',
             name: 'Detail',
             component: HouseDetails
-        },
-        {
-            path: '/house-details/delete',
-            name: 'Delete',
-            component: Delete
         },
         {
             path: '/create-new-listing',
