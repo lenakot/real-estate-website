@@ -17,17 +17,15 @@ export default {
             console.log(e)
         }
     },
-    async getHouse(id) {
-        try {
-            const response = await HTTP.get(`/houses/${id}`, {
-                headers: {
-                    Prefer: `code=200, example=Example ${id}`
-                }
-            })
-            console.log(response.data)
-            return response.data
-        } catch (e) {
-            console.log(e)
-        }
+    async editHouse(id, house) {
+        console.log(id, house )
+        // try {
+        //     const response = await HTTP.get(`/houses`)
+        //     console.log(response.data)
+            
+        //     return response.data
+        // } catch (e) {
+        //     console.log(e)
+        // }
     }
 }

@@ -1,159 +1,148 @@
 <template>
     <div class="listing">
-        <div class="listing-form">
-            <form action="#">
+        <div class="listing-form" v-if="house.houseNumber">
+            <form @submit="{ $event.preventDefault(); api.editHouse(house.id, house) }">
+                streetName - {{ house.streetName }}
                 <label for="street" class="listing-form-title">Street name*</label><br>
                 <input required class="listing-form-input listing-form-placeholder" type="text" id="street" name="street"
-                    placeholder="Enter the street name"><br>
+                    placeholder="Enter the street name" v-model="house.streetName"><br>
 
                 <div class="listing-form-two-columns">
                     <div>
+                        streetNum - {{ house.houseNumber }}
                         <label for="houseNum" class="listing-form-title">House number*</label><br>
                         <input required class="listing-form-input listing-form-placeholder" type="text" id="houseNum"
-                            name="houseNum" placeholder="Enter house number"><br>
+                            name="houseNum" placeholder="Enter house number" v-model="house.houseNumber"><br>
                     </div>
 
                     <div>
+                        addit - {{ house.numberAddition }}
                         <label for="addition" class="listing-form-title">Addition
                             (optional)</label><br>
                         <input class="listing-form-input listing-form-placeholder" type="text" id="addition" name="addition"
-                            placeholder="e.g. A"><br>
+                            placeholder="e.g. A" v-model="house.numberAddition"><br>
                     </div>
 
                 </div>
-
+                post - {{ house.zip }}
                 <label for="postCode" class="listing-form-title">Postal code*</label><br>
                 <input required class="listing-form-input listing-form-placeholder" type="text" id="postCode"
-                    name="postCode" placeholder="e.g. 1000 AA"><br>
-
+                    name="postCode" placeholder="e.g. 1000 AA" v-model="house.zip"><br>
+                city - {{ house.city }}
                 <label for="city" class="listing-form-title">City*</label><br>
                 <input required class="listing-form-input listing-form-placeholder" type="text" id="city" name="city"
-                    placeholder="e.g. Utrecht"><br>
+                    placeholder="e.g. Utrecht" v-model="house.city"><br>
 
 
                 <label for="defImageBtn" class="listing-form-title">Upload picture (PNG or JPG)*</label><br>
-                <div class="listing-form-block" data-img=""><button class="listing-form-block-image" id="newImageBtn" @click="defaulfBtnActive"></button></div>
-                <input type="file" id="defImageBtn" name="defImageBtn" accept="image/png, image/jpeg"
-                    @click="defaulfBtnActive">
+                <div class="listing-form-block listing-form-block-active" v-if="imgUrl == ''" ref="imgArea"
+                    @click="uploadImage"></div>
+                <div class="listing-form-block" v-else>
+                    <img class="listing-form-block__image" :src='imgUrl' alt="" ref="img">
+                    <div class="listing-form-block-remove" @click="deleteImage"></div>
+                </div>
+                <input hidden required type="file" ref="inputFile" @change="displayImage" name="defImageBtn"
+                    accept="image/png, image/jpeg">
                 <br>
 
+                House PRICE - {{ house.price }}
                 <label for="price" class="listing-form-title">Price*</label><br>
                 <input required class="listing-form-input listing-form-placeholder" type="text" id="price" name="price"
-                    placeholder="e.g. €150.000"><br>
+                    placeholder="e.g. €150.000" v-model="house.price"><br>
 
                 <div class="listing-form-two-columns">
                     <div>
+                        SIZE - {{ house.size }}
                         <label for="size" class="listing-form-title">Size*</label><br>
                         <input required class="listing-form-input listing-form-placeholder" type="text" id="size"
-                            name="size" placeholder="e.g. 60m2"><br>
+                            name="size" placeholder="e.g. 60m2" v-model="house.size"><br>
                     </div>
                     <div class="garage-block">
-                        <label required for="garage" class="listing-form-title">Garage*
-                            <select id="garage"  name="garage" class="listing-form-input  garage-block-select">
-                                <option disabled selected class="garage-block-option" value="Select">Select</option>
-                                <option class="garage-block-option" value="Yes">Yes</option>
-                                <option class="garage-block-option" value="No">No</option>
-                            </select>
-                        </label>
+                        <label required for="garage" class="listing-form-title">Garage*</label>
+                        <select id="garage" name="garage" class="listing-form-input  garage-block-select"
+                            v-model="house.hasGarage">
+                            <option disabled selected class="garage-block-option" value="Select">Select</option>
+                            <option class="garage-block-option" value="true">Yes</option>
+                            <option class="garage-block-option" value="false">No</option>
+                        </select>
+
                         <span class='garage-block-arrows'></span>
                     </div>
-                    <div><label for=" bedroom" class="listing-form-title">Bedrooms*</label><br>
+                </div>
+                <div class="listing-form-two-columns">
+                    <div>
+                        ROOMS - {{ house.bedrooms }}
+                        <label for=" bedroom" class="listing-form-title">Bedrooms*</label><br>
                         <input required class="listing-form-input listing-form-placeholder" type="text" id="bedroom"
-                            name="bedroom" placeholder="Enter amount"><br>
+                            name="bedroom" placeholder="Enter amount" v-model="house.bedrooms"><br>
                     </div>
                     <div><label for="bathroom" class="listing-form-title">Bathrooms*</label><br>
                         <input required class="listing-form-input listing-form-placeholder" type="text" id="bathroom"
-                            name="bathroom" placeholder="Enter amount"><br>
+                            name="bathroom" placeholder="Enter amount" v-model="house.bathrooms"><br>
                     </div>
                 </div>
 
                 <label for="constructionDate" class="listing-form-title">Construction date*</label><br>
                 <input required class="listing-form-input listing-form-placeholder" type="text" id="constructionDate"
-                    name="constructionDate" placeholder="e.g. 1990"><br>
-
+                    name="constructionDate" placeholder="e.g. 1990" v-model="house.constructionYear"><br>
+                DESCRIPTION - {{ house.description }}
                 <label for="description" class="listing-form-title">Description*</label><br>
-                <input required class="listing-form-input listing-form-placeholder listing-form-description" type="text"
-                    id="description" name="description" placeholder="Enter description"><br>
+                <textarea required class="listing-form-input listing-form-placeholder listing-form-description" type="text"
+                    id="description" name="description" placeholder="Enter description" v-model="house.description" /><br>
 
                 <input class="listing-submit" type="submit" value="POST">
+                <input class="listing-submit" type="submit" value="SAVE">
             </form>
         </div>
     </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import api from '@/api.js'
+import { onUpdated, ref } from 'vue';
+
 const props = defineProps({
-    id: {
-        type: Number,
-        required: false,
-    },
-    street: {
-        type: String,
-        required: false,
-    },
-    houseNumber: {
-        type: Number,
-        required: false,
-    },
-    addition: {
-        type: String,
-        required: false,
-    },
-    index: {
-        type: Number,
-        required: false,
-    },
-    city: {
-        type: String,
-        required: false,
-    },
-    image: {
-        type: String,
-        required: false,
-    },
-    price: {
-        type: Number,
-        required: false,
-    },
-    size: {
-        type: Number,
-        required: false,
-    },
-    garage: {
-        type: String,
-        required: false,
-    },
-    bedroom: {
-        type: Number,
-        required: false,
-    },
-    bathroom: {
-        type: Number,
-        required: false,
-    },
-    counstructionDate: {
-        type: Number,
-        required: false,
-    },
-    description: {
-        type: Number,
-        required: false,
+    house: {
+        type: Object,
+        required: true
     }
 })
 
-// onMounted(() => {
-//     console.log('showMessage prop value:', this.url)
-// });
+onUpdated(async () => {
+    console.log("onupdated listingform")
+})
 
-// import { onMounted, ref } from 'vue';
 
-// const defaultBtn = document.querySelector('#defImageBtn')
-// const newBtn = document.querySelector('#newImageBtn')
-// function defaulfBtnActive() {
-//     console.log(defaultBtn)
-//     document.getElementById('defImageBtn').click();
-// }
+const inputFile = ref();
+const imgArea = ref();
+const img = ref();
+const imgUrl = ref('')
+
+function uploadImage() {
+    inputFile.value.click();
+}
+
+function displayImage() {
+    const image = inputFile.value.files[0]
+    if (image.size < 2000000) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            imgUrl.value = reader.result;
+            img.src = imgUrl;
+            img.alt = image.name;
+        }
+        reader.readAsDataURL(image);
+    } else {
+        alert("Image size more than 2MB");
+    }
+}
+
+function deleteImage() {
+    imgUrl.value = ''
+    img.src = imgUrl;
+    inputFile.value.value = ''
+    console.log(imgUrl, 'hello')
+}
 
 </script>
 
@@ -162,7 +151,7 @@ const props = defineProps({
     background-image: url(/png/img_background@3x.png);
     background-repeat: no-repeat;
     background-size: cover;
-    margin-left: 300px;
+    margin: 0 -300px -40px 0;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -187,7 +176,7 @@ const props = defineProps({
 .listing-form {
     display: flex;
     flex-direction: column;
-    width: 390px;
+    width: 400px;
 
     &-title {
         font-family: var(--open-sans);
@@ -208,43 +197,78 @@ const props = defineProps({
         border-radius: 10px;
         padding: 15px;
         margin: 10px 0;
-        width: -webkit-fill-available;
+        width: inherit;
         outline: none;
     }
 
     &-two-columns {
-        display: grid;
-        grid-template-columns: repeat((2, 48%));
-        gap: 20px;
+        display: flex;
+        justify-content: space-between;
     }
 
     &-block {
-        width: 125px;
-        height: 125px;
-        border: 2px dashed var(--quaternary);
-        background: transparent;
+        margin: 10px 0 10px 0;
+        width: 130px;
+        height: 130px;
+        position: relative;
 
-        &-image {
+        &-active {
+            border: 2px dashed var(--quaternary);
+            background: url('/png/ic_upload@3x.png');
+            background-repeat: no-repeat;
+            background-size: 30px 30px;
+            background-position: center;
+        }
+
+        &-remove {
+            width: 20px;
+            height: 20px;
+            background: url('/png/ic_clear_white@3x.png');
+            object-fit: cover;
+            background-repeat: no-repeat;
+            background-size: 25px 25px;
+            background-position: center;
+            position: absolute;
+            left: 120px;
+            top: -5px;
+        }
+
+        &-remove:hover {
+            width: 20px;
+            height: 20px;
+            background: url('/png/ic_clear@3x.png');
+            object-fit: cover;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+            background-position: center;
+            border-radius: 50%;
+        }
+
+        &__image {
             width: inherit;
             height: inherit;
-            background: transparent;
-            border: none;
-         }
+            object-fit: cover;
+            border-radius: 10px;
+        }
     }
 
     .garage-block {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-left: 10px;
         position: relative;
 
         &-arrows {
             display: block;
-                position: absolute;
-                background: var(--background2);
-                top: 30px;
-                right: 2px;
-                width: 30px;
-                height: 45px;
-                border-radius: 10px;
-                pointer-events: none;
+            position: absolute;
+            background: var(--background2);
+            top: 30px;
+            right: 2px;
+            width: 30px;
+            height: 45px;
+            border-radius: 10px;
+            pointer-events: none;
         }
 
         &-arrows::before {
@@ -258,21 +282,15 @@ const props = defineProps({
             font-weight: 600;
             transform: rotate(90deg);
         }
-        .garage-block-select option {
-                color: var(--quaternary);
-        }
-
 
     }
-        // &__input {
-        //     width: 125px;
-        //     height: 125px;
-        // }
 
     &-description {
-        height: 150px;
-        // text-align: left;
-        // vertical-align: top;
+        min-height: 220px;
+        overflow-wrap: break-word;
+        box-sizing: border-box;
+        resize: none;
+        overflow: hidden;
     }
 
     &-description::placeholder {
@@ -282,5 +300,13 @@ const props = defineProps({
         padding: 10px;
 
     }
+}
+
+form {
+    width: inherit;
+}
+
+select {
+    height: 50px;
 }
 </style>
