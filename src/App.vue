@@ -1,12 +1,17 @@
 <template>
+  <Header/>
   <div class="container">
-    <Header/>
-    <router-view />
+     <router-view />
+    <!-- <ListingForm/> -->
+    <!-- <SearchAndSort/> -->
   </div>
 </template>
 
 <script setup>
 import Header from '@/components/Layout/Header.vue'
+import SearchAndSort from '@/components/SearchAndSort.vue'
+
+
 </script>
 
 
