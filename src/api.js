@@ -29,4 +29,7 @@ export default {
       },
     });
   },
+  async editHouse(id, house) {
+    await HTTP.post(`/houses/${id}`, house);
+  },
 };
