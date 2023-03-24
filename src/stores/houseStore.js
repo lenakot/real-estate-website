@@ -4,7 +4,7 @@ import api from "@/api.js";
 export const useHousesStore = defineStore("housesStore", {
   state: () => ({
     listOfHouses: [],
-    search: "kek",
+    search: "",
   }),
   getters: {
     getHouseById: (state) => {
@@ -21,23 +21,20 @@ export const useHousesStore = defineStore("housesStore", {
         });
     },
     filter: (state) => {
-      let filteredList = state.listOfHouses.filter((house) => {
-        if (house.location.city.includes(state.search)) {
-          console.log("yes");
-        } else {
-          console.log("no");
+      return state.listOfHouses.filter((house) => {
+        console.log("state.search ", state.search);
+        if (
+          house.location.city
+            .toLowerCase()
+            .includes(state.search.toLowerCase()) ||
+          house.location.street
+            .toLowerCase()
+            .includes(state.search.toLowerCase())
+        ) {
+          return house;
         }
       });
-      console.log(filteredList);
     },
-    // Object.value(house).includes(this.search)
-    // return (this.search) => state.listOfHouses.find((house) => {
-    //   for (let keys of house) {
-
-    //   } (house.id == id) {
-    //     return house;
-    //   }
-    // });
   },
 
   actions: {
@@ -46,11 +43,12 @@ export const useHousesStore = defineStore("housesStore", {
       return this.listOfHouses;
     },
     async deleteHouse(id) {
-      //   for (let house of this.listOfHouses.value) {
-      //     if (house.id === id) {
-      //     this.listOfHouses.value.splice(this.listOfHouses.value.indexOf(house), 1)
-      //     }
-      //   }
+      //  Necessary to remove the house from the main page immediately because a request for a list of houses is only sent once.
+      for (let house of this.listOfHouses) {
+        if (house.id === id) {
+          this.listOfHouses.splice(this.listOfHouses.indexOf(house), 1);
+        }
+      }
       await api.deleteHouse(id);
     },
     async createNewHouse(house, image) {
