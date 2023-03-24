@@ -5,7 +5,7 @@
             <router-link :to="`/house/${house.id}`" class="house-description-street">{{ house.location.street
             }}</router-link>
             <div class="house-description-price">€{{ house.price }}</div>
-            <div class="house-description-index">{{ house.location.zip }}</div>
+            <div class="house-description-index">{{ house.location.zip }} {{ house.location.city }}</div>
             <div class="house-description-block">
                 <img class="house-description-block__icon" src="/png/ic_bed@3x.png" alt="bed">
                 <span class="house-description-block__title">{{ house.rooms.bedrooms }}</span>
@@ -18,18 +18,17 @@
             </div>
         </div>
         <div class="house-tools" v-if="house.madeByMe">
-            <img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon">
-            <img src="/png/ic_delete@3x.png" alt="ic_delete" class="house-tools__icon">
+            <router-link :to="`/edit-listing/${house.id}`">
+                <img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon">
+            </router-link>
+            <div @click="toogleDeleteBlock"><img src="/png/ic_delete@3x.png" alt="ic_delete" class="house-tools__icon">
+            </div>
         </div>
     </div>
 </template>
 
 
 <script setup>
-import { useHousesStore } from '@/stores/houseStore.js'
-
-const housesStore = useHousesStore()
-
 const props = defineProps({
     house: {
         type: Object,
@@ -113,6 +112,12 @@ const props = defineProps({
             width: 20px;
             height: 20px;
             cursor: pointer;
+            opacity: 0.5;
+        }
+
+        &__icon:hover {
+            cursor: pointer;
+            opacity: 1;
         }
     }
 
