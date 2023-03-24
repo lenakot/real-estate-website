@@ -8,68 +8,71 @@
     <div class="house-details-container">
         <div class="house-details">
             <div class="house-details-image">
-                <img class="house-details-image__img" :src="`${house.image}`" :alt="`${house.location?.street}`">
+                <img class="house-details-image__img" :src="`${currentHouse?.image}`"
+                    :alt="`${currentHouse.location?.street}`">
             </div>
             <div class="house-details-wrapper">
                 <div class="house-details-description">
                     <div class="house-short-description">
-                        <div class="house-details-description-street">{{ house.location?.street }}</div>
+                        <div class="house-details-description-street">{{ currentHouse.location?.street }}</div>
 
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_location@3x.png"
                                     alt="location">
-                                <span class="house-details-description-block__title">{{ house.location?.zip }}
-                                    {{ house.location?.city }}</span>
+                                <span class="house-details-description-block__title">{{ currentHouse.location?.zip }}
+                                    {{ currentHouse.location?.city }}</span>
                             </div>
                         </div>
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_price@3x.png" alt="price">
-                                <span class="house-details-description-block__title">{{ house.price }}</span>
+                                <span class="house-details-description-block__title">{{ currentHouse.price }}</span>
                             </div>
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_size@3x.png" alt="size">
-                                <span class="house-details-description-block__title">{{ house.size }}m2</span>
+                                <span class="house-details-description-block__title">{{ currentHouse.size }}m2</span>
                             </div>
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_construction_date@3x.png"
                                     alt="construction_date">
                                 <span class="house-details-description-block__title">Built in
-                                    {{ house.constructionYear }}</span>
+                                    {{ currentHouse.constructionYear }}</span>
                             </div>
                         </div>
                         <div class="house-details-description-block">
                             <div>
                                 <img class="house-details-description-block__icon" src="/png/ic_bed@3x.png" alt="bed">
-                                <span class="house-details-description-block__title">{{ house.rooms?.bedrooms }}</span>
+                                <span class="house-details-description-block__title">{{ currentHouse.rooms?.bedrooms
+                                }}</span>
                             </div>
 
                             <div><img class="house-details-description-block__icon" src="/png/ic_bath@3x.png" alt="bath">
-                                <span class="house-details-description-block__title">{{ house.rooms?.bathrooms }}</span>
+                                <span class="house-details-description-block__title">{{ currentHouse.rooms?.bathrooms
+                                }}</span>
                             </div>
 
                             <div><img class="house-details-description-block__icon" src="/png/ic_garage@3x.png"
                                     alt="garage">
-                                <span class="house-details-description-block__title">{{ (house.hasGarage ? "Yes" :
+                                <span class="house-details-description-block__title">{{ (currentHouse.hasGarage ? "Yes" :
                                     "No") }}</span>
                             </div>
                         </div>
 
                     </div>
-                    <div class="house-tools" v-if="house.madeByMe">
-                        <router-link :to="`/edit-listing/${house.id}`"><img src="/png/ic_edit@3x.png" alt="edit"
+                    <div class="house-tools" v-if="currentHouse.madeByMe">
+                        <router-link :to="`/edit-listing/${currentHouse.id}`"><img src="/png/ic_edit@3x.png" alt="edit"
                                 class="house-tools__icon"></router-link>
                         <div @click="toogleDeleteBlock"><img src="/png/ic_delete@3x.png" alt="ic_delete"
                                 class="house-tools__icon"></div>
                         <div v-if="isVisibleDeleteBlock">
-                            <DeleteHouse :house='house' @goBack="toogleDeleteBlock" />
+                            <DeleteHouse :house='currentHouse' @goBack="toogleDeleteBlock" />
                             <GrayBackground />
                         </div>
                     </div>
                 </div>
                 <div class="house-details-description-area">
-                    {{ house.description }}
+                    {{ currentHouse.description }}
                 </div>
             </div>
 
@@ -86,13 +89,17 @@ import RecommendationsList from '@/components/RecommendationsList.vue'
 import DeleteHouse from '@/components/DeleteHouse.vue'
 import GrayBackground from '@/components/GrayBackground.vue'
 import { ref } from 'vue';
+import { useHousesStore } from '@/stores/houseStore.js'
 
 const props = defineProps({
-    house: {
-        type: Object,
-        required: true
+    houseId: {
+        type: String,
     }
 })
+
+const housesStore = useHousesStore()
+const currentHouse = housesStore.getHouseById(props.houseId)
+
 const isVisibleDeleteBlock = ref(false)
 function toogleDeleteBlock() {
     isVisibleDeleteBlock.value = !isVisibleDeleteBlock.value
@@ -200,6 +207,12 @@ function toogleDeleteBlock() {
             width: 20px;
             height: 20px;
             cursor: pointer;
+            opacity: 0.5;
+        }
+
+        &__icon:hover {
+            cursor: pointer;
+            opacity: 1;
         }
     }
 }
