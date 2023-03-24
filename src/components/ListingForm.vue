@@ -1,65 +1,60 @@
 <template>
     <div class="listing">
         <div class="listing-form">
-            <form @submit="{ $event.preventDefault(); housesStore.createNewHouse(house, imageFile) }">
-                streetName - {{ house.streetName }}
-                <label for="street" class="listing-form-title">Street name*</label><br>
+            <form @submit.prevent="handleSubmit">
+                <label for=" street" class="listing-form-title">Street name*</label><br>
                 <input required class="listing-form-input listing-form-placeholder" type="text" id="street" name="street"
-                    placeholder="Enter the street name" v-model="house.streetName"><br>
+                    placeholder="Enter the street name" v-model="currentHouse.streetName"><br>
 
                 <div class="listing-form-two-columns">
                     <div>
-                        streetNum - {{ house.houseNumber }}
                         <label for="houseNum" class="listing-form-title">House number*</label><br>
                         <input required class="listing-form-input listing-form-placeholder" type="text" id="houseNum"
-                            name="houseNum" placeholder="Enter house number" v-model="house.houseNumber"><br>
+                            name="houseNum" placeholder="Enter house number" v-model="currentHouse.houseNumber"><br>
                     </div>
 
                     <div>
-                        addit - {{ house.numberAddition }}
                         <label for="addition" class="listing-form-title">Addition
                             (optional)</label><br>
                         <input class="listing-form-input listing-form-placeholder" type="text" id="addition" name="addition"
-                            placeholder="e.g. A" v-model="house.numberAddition"><br>
+                            placeholder="e.g. A" v-model="currentHouse.numberAddition"><br>
                     </div>
 
                 </div>
-                post - {{ house.zip }}
                 <label for="postCode" class="listing-form-title">Postal code*</label><br>
                 <input required class="listing-form-input listing-form-placeholder" type="text" id="postCode"
-                    name="postCode" placeholder="e.g. 1000 AA" v-model="house.zip"><br>
-                city - {{ house.city }}
+                    name="postCode" placeholder="e.g. 1000 AA" v-model="currentHouse.zip"><br>
                 <label for="city" class="listing-form-title">City*</label><br>
                 <input required class="listing-form-input listing-form-placeholder" type="text" id="city" name="city"
-                    placeholder="e.g. Utrecht" v-model="house.city"><br>
-
+                    placeholder="e.g. Utrecht" v-model="currentHouse.city"><br>
 
                 <label for="defImageBtn" class="listing-form-title">Upload picture (PNG or JPG)*</label><br>
-                <div class="listing-form-block listing-form-block-active" v-if="imgUrl == ''" @click="uploadImage"></div>
-                <div class="listing-form-block" v-else>
-                    <img class="listing-form-block__image" :src='imgUrl'>
-                    <div class="listing-form-block-remove" @click="deleteImage"></div>
+                <div class="listing-form-block">
+                    <div class="listing-form-block listing-form-block-active" v-if="currentImageUrl == ''"
+                        @click="uploadImage">
+                    </div>
+                    <div class="listing-form-block" v-else>
+                        <img class="listing-form-block__image" :src='currentImageUrl'>
+                        <div class="listing-form-block-remove" @click="deleteImage"></div>
+                    </div>
+                    <input :required="currentImageUrl === ''" class="listing-form-block-input-file" type="file"
+                        ref="inputFile" @change="displayImage" name="defImageBtn" accept="image/png, image/jpeg">
                 </div>
-                <input hidden required type="file" ref="inputFile" @change="displayImage" name="defImageBtn"
-                    accept="image/png, image/jpeg">
-                <br>
 
-                House PRICE - {{ house.price }}
                 <label for="price" class="listing-form-title">Price*</label><br>
                 <input required class="listing-form-input listing-form-placeholder" type="text" id="price" name="price"
-                    placeholder="e.g. €150.000" v-model="house.price"><br>
+                    placeholder="e.g. €150.000" v-model="currentHouse.price"><br>
 
                 <div class="listing-form-two-columns">
                     <div>
-                        SIZE - {{ house.size }}
                         <label for="size" class="listing-form-title">Size*</label><br>
                         <input required class="listing-form-input listing-form-placeholder" type="text" id="size"
-                            name="size" placeholder="e.g. 60m2" v-model="house.size"><br>
+                            name="size" placeholder="e.g. 60m2" v-model="currentHouse.size"><br>
                     </div>
                     <div class="garage-block">
-                        <label required for="garage" class="listing-form-title">Garage*</label>
-                        <select id="garage" name="garage" class="listing-form-input  garage-block-select"
-                            v-model="house.hasGarage">
+                        <label for="garage" class="listing-form-title">Garage*</label>
+                        <select required id="garage" name="garage" class="listing-form-input  garage-block-select"
+                            v-model="currentHouse.hasGarage">
                             <option disabled selected class="garage-block-option" value="Select">Select</option>
                             <option class="garage-block-option" value="true">Yes</option>
                             <option class="garage-block-option" value="false">No</option>
@@ -70,55 +65,61 @@
                 </div>
                 <div class="listing-form-two-columns">
                     <div>
-                        ROOMS - {{ house.bedrooms }}
                         <label for=" bedroom" class="listing-form-title">Bedrooms*</label><br>
                         <input required class="listing-form-input listing-form-placeholder" type="text" id="bedroom"
-                            name="bedroom" placeholder="Enter amount" v-model="house.bedrooms"><br>
+                            name="bedroom" placeholder="Enter amount" v-model="currentHouse.bedrooms"><br>
                     </div>
                     <div><label for="bathroom" class="listing-form-title">Bathrooms*</label><br>
                         <input required class="listing-form-input listing-form-placeholder" type="text" id="bathroom"
-                            name="bathroom" placeholder="Enter amount" v-model="house.bathrooms"><br>
+                            name="bathroom" placeholder="Enter amount" v-model="currentHouse.bathrooms"><br>
                     </div>
                 </div>
 
                 <label for="constructionDate" class="listing-form-title">Construction date*</label><br>
                 <input required class="listing-form-input listing-form-placeholder" type="text" id="constructionDate"
-                    name="constructionDate" placeholder="e.g. 1990" v-model="house.constructionYear"><br>
-                DESCRIPTION - {{ house.description }}
+                    name="constructionDate" placeholder="e.g. 1990" v-model="currentHouse.constructionYear"><br>
                 <label for="description" class="listing-form-title">Description*</label><br>
                 <textarea required class="listing-form-input listing-form-placeholder listing-form-description" type="text"
-                    id="description" name="description" placeholder="Enter description" v-model="house.description" /><br>
+                    id="description" name="description" placeholder="Enter description"
+                    v-model="currentHouse.description" /><br>
 
-                <!-- <input class="listing-submit" v-if='house.streetName' type="submit" value="SAVE"> -->
-                <input class="listing-submit" type="submit" value="POST">
+                <input v-if='houseId === undefined' class="listing-submit" type="submit" value="POST">
+                <input v-else class="listing-submit" type="submit" value="SAVE">
             </form>
         </div>
     </div>
 </template>
 
 <script setup>
-import { onUpdated, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useHousesStore } from '@/stores/houseStore.js'
 
 const housesStore = useHousesStore()
-
+// console.log('try to get id', props.houseId, housesStore.getHouseById(props.houseId))
 const props = defineProps({
-    house: {
-        type: Object,
-        required: true
-    }
+    houseId: {
+        type: String,
+    },
 })
 
-const inputFile = ref();
-const imgUrl = ref('')
-const imageFile = ref(null)
-
-onUpdated(async () => {
-    if (props.house.image !== '') {
-        imgUrl.value = props.house.image
-    }
-    console.log(props.house)
+const currentHouse = ref({
+    price: 123,
+    bedrooms: 1,
+    bathrooms: 2,
+    size: 55,
+    streetName: 'Laliala',
+    houseNumber: 123,
+    numberAddition: 'X',
+    zip: '1234XY',
+    city: 'Lalala',
+    constructionYear: 2001,
+    hasGarage: true,
+    description: 'Foooo',
 })
+const currentImageUrl = ref('') // для src
+
+const inputFile = ref(); // скрытое поле для выбора
+const imageFile = ref(null) //для отправки на сервер\
 
 function uploadImage() {
     inputFile.value.click();
@@ -128,18 +129,60 @@ function displayImage() {
     const image = inputFile.value.files[0]
     imageFile.value = image
     if (image.size < 2000000) {
-        imgUrl.value = URL.createObjectURL(image)
+        currentImageUrl.value = URL.createObjectURL(image)
     } else {
         alert("Image size more than 2MB");
     }
 }
 
 function deleteImage() {
-    imgUrl.value = ''
+    currentImageUrl.value = ''
     inputFile.value.value = ''
-    console.log(imgUrl, 'hello')
 }
 
+function handleSubmit() {
+    console.log('handlesubmit - ', currentHouse.value)
+    if (props.houseId === undefined) {
+        housesStore.createNewHouse(currentHouse.value, imageFile.value)
+    } else {
+        housesStore.editHouse(props.houseId, currentHouse.value, imageFile.value)
+    }
+}
+
+const addressRegex = /^(.+?)\s+(\d+)(\w*)$/
+
+function parseAddress(address) {
+    const matches = address.match(addressRegex)
+    if (!matches) {
+        return null
+    }
+
+    const street = matches[1]
+    const number = parseInt(matches[2])
+    const additional = matches[3]
+
+    return { street, number, additional }
+}
+
+onMounted(async () => {
+    const house = housesStore.getHouseById(props.houseId)
+    const address = parseAddress(house.location.street)
+    currentImageUrl.value = house.image
+    currentHouse.value = {
+        price: house.price,
+        bedrooms: house.rooms.bedrooms,
+        bathrooms: house.rooms.bathrooms,
+        size: house.size,
+        streetName: address.street,
+        houseNumber: address.number,
+        numberAddition: address.additional,
+        zip: house.location.zip,
+        city: house.location.city,
+        constructionYear: house.constructionYear,
+        hasGarage: house.hasGarage,
+        description: house.description,
+    }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -161,11 +204,11 @@ function deleteImage() {
         margin-left: 40%;
         margin-top: 25px;
         width: 60%;
-        opacity: 0.5;
         font-family: var(--montserrat);
         font-size: 18px;
         font-weight: 600;
-        color: var(--background2)
+        color: var(--background2);
+        cursor: pointer;
     }
 }
 
@@ -238,6 +281,14 @@ function deleteImage() {
             background-size: 20px 20px;
             background-position: center;
             border-radius: 50%;
+        }
+
+        &-input-file {
+            width: 1px;
+            height: 1px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
         }
 
         &__image {
