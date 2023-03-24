@@ -8,11 +8,6 @@ export const useHousesStore = defineStore("housesStore", {
   }),
   getters: {
     getHouseById: (state) => {
-      // const theHouse = [];
-      // theHouse.value = state.listOfHouses.filter((house) =>
-      //   theHouse.push(house)
-      // );
-      // console.log("theHouse-", theHouse);
       return (id) =>
         state.listOfHouses.find((house) => {
           if (house.id == id) {
@@ -22,7 +17,6 @@ export const useHousesStore = defineStore("housesStore", {
     },
     filter: (state) => {
       return state.listOfHouses.filter((house) => {
-        console.log("state.search ", state.search);
         if (
           house.location.city
             .toLowerCase()
@@ -35,6 +29,16 @@ export const useHousesStore = defineStore("housesStore", {
         }
       });
     },
+    sortByPrice: (state) => {
+      return state.listOfHouses.sort(
+        (prevHouse, currHouse) => prevHouse.price - currHouse.price
+      );
+    },
+    sortBySize: (state) => {
+      return state.listOfHouses.sort(
+        (prevHouse, currHouse) => prevHouse.size - currHouse.size
+      );
+    },
   },
 
   actions: {
@@ -43,17 +47,23 @@ export const useHousesStore = defineStore("housesStore", {
       return this.listOfHouses;
     },
     async deleteHouse(id) {
+      await api.deleteHouse(id);
+
       //  Necessary to remove the house from the main page immediately because a request for a list of houses is only sent once.
       for (let house of this.listOfHouses) {
         if (house.id === id) {
           this.listOfHouses.splice(this.listOfHouses.indexOf(house), 1);
         }
       }
-      await api.deleteHouse(id);
     },
     async createNewHouse(house, image) {
       const newHouse = await api.createHouse(house);
       await api.uploadImage(newHouse.id, image);
+      // const houseToAdd = this.getHouseById(newHouse.id);
+      // // this.listOfHouses[this.listOfHouses.length] = newHouseFullInfo;
+      // console.log("after-", houseToAdd);
+      // // this.listOfHouses[this.listOfHouses.length].image = image;
+      // console.log("after-", houseToAdd);
     },
     async editHouse(houseId, house, image) {
       await api.editHouse(houseId, house);

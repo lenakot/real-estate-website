@@ -2,28 +2,46 @@
     <div class="search-and-sort-wrapper">
         <form class="search-wrapper" action="#">
             <img class='search-wrapper-image' src="/png/ic_search@3x.png" alt="search">
-            <input class='search-wrapper-input' type="text" placeholder="Search for a house" name="search" ref='searchInput'
-                v-model="housesStore.search">
+            <input class='search-wrapper-input' @click="clearInput(this)" type="text" placeholder="Search for a house"
+                name="search" v-model="housesStore.search" ref="search">
         </form>
         <div class="sort-wrapper">
-            <div class="sort-wrapper-price sort-wrapper-title">Price</div>
-            <div class="sort-wrapper-size sort-wrapper-title">Size</div>
+            <div @click='sortByPrice' class="sort-wrapper-price sort-wrapper-title">Price</div>
+            <div @click='sortBySize' class="sort-wrapper-size sort-wrapper-title">Size</div>
         </div>
     </div>
-    <House v-for="house of housesStore.filter" :key='house.id' :house="house" />
+    <div v-if="sortedBy == ''">
+        <House v-for="house of housesStore.filter" :key='house.id' :house="house" />
+    </div>
+    <div v-else>
+        <House v-for="house of sortedBy" :key='house.id' :house="house" />
+    </div>
+    <div v-if='housesStore.filter.length === 0' class='search-undefined'>
+        <img src="/png/img_empty_houses@3x.png" alt="not found" class='search-undefined-image'>
+        <div class='search-undefined-description'>No results found.</div>
+        <div class='search-undefined-description'>Please try another keyword.</div>
+    </div>
 </template>
 
 <script setup>
 import House from '@/components/House.vue'
 import { useHousesStore } from '@/stores/houseStore.js'
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 const housesStore = useHousesStore()
-const listOfHouses = ref({})
-onMounted(async () => {
-    listOfHouses.value = housesStore.filter
-})
-housesStore.filter
-console.log('doma-', listOfHouses.value)
+const search = ref('')
+
+const sortedBy = ref('')
+function clearInput() {
+    search.value.value = ''
+    sortedBy.value = ''
+}
+
+function sortByPrice() {
+    sortedBy.value = housesStore.sortByPrice
+}
+function sortBySize() {
+    sortedBy.value = housesStore.sortBySize
+}
 
 </script>
 
@@ -87,6 +105,29 @@ console.log('doma-', listOfHouses.value)
         font-size: 18px;
         text-align: center;
         padding: 8px
+    }
+}
+
+.search-undefined {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px 0;
+    height: 400px;
+    width: auto;
+
+    &-image {
+        width: auto;
+        height: inherit;
+        padding: 50px;
+        object-fit: contain;
+    }
+
+    &-description {
+        font-family: var(--montserrat);
+        font-size: 18px;
+        color: var(--text-secondary);
+        text-align: center;
     }
 }
 </style>
