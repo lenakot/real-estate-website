@@ -1,6 +1,6 @@
 <template>
     <div class="listing-back-wrapper">
-        <router-link to="/" class="listing-back">
+        <router-link :to="`/house/${props.houseId}`" class="listing-back">
             <img src="/png/ic_back_grey@3x.png" alt="back" class="listing-back__icon">
             <div class="listing-back__title">Back to overview</div>
         </router-link>
@@ -8,6 +8,13 @@
     </div>
 </template>
 
+<script setup>
+const props = defineProps({
+    houseId: {
+        type: String,
+    },
+})
+</script>
 
 <style lang="scss" scoped>
 .listing-back-wrapper {
