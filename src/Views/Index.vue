@@ -1,9 +1,7 @@
 <template>
-    <HousesListHeader />
-    <HousesList />
+    <MainPage />
 </template>
 
 <script setup>
-import HousesListHeader from '@/components/HousesListHeader.vue'
-import HousesList from '@/components/HousesList.vue'
+import MainPage from '@/components/MainPage.vue'
 </script>
