@@ -39,6 +39,16 @@ export const useHousesStore = defineStore("housesStore", {
         (prevHouse, currHouse) => prevHouse.size - currHouse.size
       );
     },
+    //Give max 3 reccomendation based on same city
+    getReccomendations: (state) => {
+      return (city, id) => {
+        // house.id != id -  exclude the same house from the reccomendation list});
+        const reccomendationList = state.listOfHouses.filter(
+          (house) => house.location.city == city && house.id != id
+        );
+        return reccomendationList.slice(0, 3);
+      };
+    },
   },
 
   actions: {
