@@ -2,8 +2,10 @@
     <div v-if="isMobile">
         <div class="header-mobile" ref="headerDiv">
             <div class="header-mobile-menu">
-                <router-link to='/' class="header-mobile-menu-image header-mobile-menu-image__houses"></router-link>
-                <router-link to="/about" class="header-mobile-menu-image header-mobile-menu-image__info"></router-link>
+                <router-link to='/' class="header-mobile-menu-links header-mobile-menu-links__houses"
+                    :class="{ active: isActive('/') }"></router-link>
+                <router-link to="/about" class="header-mobile-menu-links header-mobile-menu-links__info"
+                    :class="{ active: isActive('/about') }"></router-link>
             </div>
         </div>
     </div>
@@ -11,19 +13,31 @@
         <div class="header" ref="headerDiv">
             <div class="header-menu">
                 <router-link to="/"><img src="/png/img_logo_dtt@3x.png" alt="logo" class="header-menu-image"></router-link>
-                <router-link to='/' class="header-menu-links">Houses</router-link>
-                <router-link to="/about" class="header-menu-links">About</router-link>
+                <router-link to='/' class="header-menu-links" :class="{ active: isActive('/') }">Houses</router-link>
+                <router-link to="/about" class="header-menu-links"
+                    :class="{ active: isActive('/about') }">About</router-link>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
+import { useRouter } from 'vue-router'
 
 const isMobile = ref(false);
 const checkIfMobile = () => {
     isMobile.value = window.innerWidth < 768;
+}
+
+const headerDiv = ref()
+const router = useRouter()
+
+function isActive(href) {
+    if (router.currentRoute.value.path == "/about") {
+        return href == "/about";
+    }
+    return href != "/about";;
 }
 
 onMounted(async () => {
@@ -34,6 +48,8 @@ onMounted(async () => {
 onUnmounted(async () => {
     window.removeEventListener("resize", checkIfMobile);
 });
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -67,11 +83,16 @@ onUnmounted(async () => {
             cursor: pointer;
         }
 
-        &-links[data-current=true] {
-            font-family: var(--montserrat);
-            font-size: var(--body-text-desktop);
+        &-links.active {
+            font-size: var(--desktop-active-menu);
             font-weight: var(--bold);
             color: var(--text-primary);
+        }
+
+        &-links {
+            font-size: var(--desktop-inactive-menu);
+            font-weight: var(--medium);
+            color: var(--text-secondary);
         }
     }
 }
@@ -88,32 +109,30 @@ onUnmounted(async () => {
         display: flex;
         gap: 65px;
         align-items: center;
-        padding: 15px;
+        padding: 10px;
         width: 100vw;
         justify-content: space-around;
 
-        &-image {
-            height: 30px;
-            width: 30px;
+        &-links {
+            height: 25px;
+            width: 25px;
+            background-size: 25px 25px;
+            background-repeat: no-repeat;
 
             &__houses {
                 background-image: url('/png/ic_mobile_navigarion_home@3x.png');
-                background-size: 30px 30px;
             }
 
-            &__houses:hover {
+            &__houses.active {
                 background-image: url('/png/ic_mobile_navigarion_home_active@3x.png');
-                background-size: 30px 30px;
             }
 
             &__info {
                 background-image: url('/png/ic_mobile_navigarion_info@3x.png');
-                background-size: 30px 30px;
             }
 
-            &__info:hover {
+            &__info.active {
                 background-image: url('/png/ic_mobile_navigarion_info_active@3x.png');
-                background-size: 30px 30px;
             }
         }
     }
