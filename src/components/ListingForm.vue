@@ -93,9 +93,10 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useHousesStore } from '@/stores/houseStore.js'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const housesStore = useHousesStore()
-// console.log('try to get id', props.houseId, housesStore.getHouseById(props.houseId))
 const props = defineProps({
     houseId: {
         type: String,
@@ -144,8 +145,10 @@ function handleSubmit() {
     console.log('handlesubmit - ', currentHouse.value)
     if (props.houseId === undefined) {
         housesStore.createNewHouse(currentHouse.value, imageFile.value)
+        router.push('/')
     } else {
         housesStore.editHouse(props.houseId, currentHouse.value, imageFile.value)
+        router.push(`/house/${props.houseId}`)
     }
 }
 
