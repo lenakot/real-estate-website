@@ -66,7 +66,7 @@ onUnmounted(async () => {
         padding: 20px 20px 20px 0;
         width: fit-content;
 
-        @media screen and (max-width: 1150px) {
+        @media screen and (max-width: 1200px) {
             margin-left: 150px;
         }
 

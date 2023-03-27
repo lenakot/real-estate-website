@@ -195,7 +195,7 @@ onUpdated(async () => {
     padding-bottom: 40px;
     max-width: 100vw;
 
-    @media screen and (max-width: 1150px) {
+    @media screen and (max-width: 1200px) {
         margin: 40px 150px;
     }
 

@@ -58,7 +58,7 @@ function goBack() {
     padding: 50px;
     border-radius: 10px;
 
-    @media screen and (max-width: 1150px) {
+    @media screen and (max-width: 1200px) {
         width: 400px;
         margin: 10px;
     }
@@ -72,7 +72,7 @@ function goBack() {
         font-size: var(--header-2-desktop);
         font-weight: bold;
 
-        @media screen and (max-width: 1150px) {
+        @media screen and (max-width: 1200px) {
             font-size: 18px;
         }
 
@@ -87,7 +87,7 @@ function goBack() {
         font-weight: var(--regular);
         color: var(--text-secondary);
 
-        @media screen and (max-width: 1150px) {
+        @media screen and (max-width: 1200px) {
             font-size: 14px;
         }
 
@@ -118,7 +118,7 @@ function goBack() {
             cursor: pointer;
             text-decoration: none;
 
-            @media screen and (max-width: 1150px) {
+            @media screen and (max-width: 1200px) {
                 width: 200px;
                 font-size: 16px;
             }

@@ -166,7 +166,7 @@ onUnmounted(async () => {
     flex-direction: column;
     gap: 20px;
 
-    @media screen and (max-width: 1150px) {
+    @media screen and (max-width: 1200px) {
         margin: 40px 150px;
     }
 
@@ -177,7 +177,7 @@ onUnmounted(async () => {
 
 .back-block {
 
-    @media screen and (max-width: 1150px) {
+    @media screen and (max-width: 1200px) {
         width: 100%;
     }
 
@@ -216,7 +216,7 @@ onUnmounted(async () => {
     width: inherit;
     gap: 75px;
 
-    @media screen and (max-width: 1150px) {
+    @media screen and (max-width: 1200px) {
         gap: 0;
     }
 
@@ -289,6 +289,10 @@ onUnmounted(async () => {
                 align-items: center;
                 gap: 5px;
 
+                @media screen and (max-width: 1200px) {
+                    font-size: 28px;
+                }
+
                 @media screen and (max-width: 767px) {
                     font-size: var(--header-1-mobile);
                 }
@@ -317,6 +321,10 @@ onUnmounted(async () => {
                     font-weight: var(--semibold);
                     color: var(--text-secondary);
 
+                    @media screen and (max-width: 1200px) {
+                        font-size: 14px;
+                    }
+
                     @media screen and (max-width: 767px) {
                         font-size: var(--listing-info-mobile);
                     }
@@ -334,7 +342,7 @@ onUnmounted(async () => {
                 cursor: pointer;
                 opacity: 0.5;
 
-                @media screen and (max-width: 1150px) {
+                @media screen and (max-width: 1200px) {
                     opacity: 1;
                     height: 22px;
                 }
@@ -352,6 +360,10 @@ onUnmounted(async () => {
         font-family: var(--open-sans);
         font-size: var(--body-text-desktop);
         color: var(--text-secondary);
+
+        @media screen and (max-width: 1200px) {
+            font-size: 16px;
+        }
 
         @media screen and (max-width: 767px) {
             font-size: var(--body-text-mobile);

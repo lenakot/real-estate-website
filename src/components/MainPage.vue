@@ -69,7 +69,7 @@ onUnmounted(async () => {
 .main-page-wrapper {
     margin: 40px 300px;
 
-    @media screen and (max-width: 1150px) {
+    @media screen and (max-width: 1200px) {
         margin: 40px 150px;
     }
 
