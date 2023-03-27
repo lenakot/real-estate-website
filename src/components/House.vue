@@ -2,8 +2,8 @@
     <div class="house">
         <img :src="`${house.image}`" :alt="`${house.location.street}`" class="house-image">
         <div class="house-description">
-            <router-link :to="`/house/${house.id}`" class="house-description-street">{{ house.location.street
-            }}</router-link>
+            <router-link :to="`/house/${house.id}`" class="house-description-street">
+                {{ house.location.street }}</router-link>
             <div class="house-description-price">€{{ house.price }}</div>
             <div class="house-description-index">{{ house.location.zip }} {{ house.location.city }}</div>
             <div class="house-description-block">
@@ -21,8 +21,9 @@
             <router-link :to="`/edit-listing/${house.id}`">
                 <img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon">
             </router-link>
-            <div @click="toogleDeleteBlock"><img src="/png/ic_delete@3x.png" alt="ic_delete" class="house-tools__icon">
-            </div>
+            <router-link :to="{ name: 'Detail', params: { id: house.id }, query: { showDelete: true } }">
+                <img src="/png/ic_delete@3x.png" alt="ic_delete" class="house-tools__icon">
+            </router-link>
         </div>
     </div>
 </template>
