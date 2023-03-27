@@ -19,8 +19,35 @@
     --text-secondary: rgb(74, 75, 76);
     --hyperlink: rgb(6, 12, 194);
 
+    //font-weight
+    --bold: 700;
+    --semibold: 600;
+    --medium: 500;
+    --regular: 400;
 
-    --lightGray: #5b5676;
+    --header-1-desktop: 32px;
+    --header-1-mobile: 22px;
+    --header-2-desktop: 22px;
+    --header-2-mobile: 14px;
+    --desktop-active-menu: 18px;
+    --desktop-inactive-menu: 18px;
+    --buttons-n-tabs-desktop: 18px;
+    --buttons-n-tabs-mobile: 12px;
+    --back-button-label-desktop: 16px;
+    --input-title-desktop: 14px;
+    --input-title-mobile: 12px;
+    --input-field-desktop: 14px;
+    --input-field-mobile: 12px;
+    --empty-state-message-desktop: 18px;
+    --empty-state-message-mobile: 14px;
+    --error-message-desktop: 14px;
+    --error-message-desktop: 12px;
+    --listing-info-desktop: 16px;
+    --listing-info-mobile: 12px;
+    --body-text-desktop: 18px;
+    --body-text-mobile: 12px;
+
+
 
 }
 
@@ -35,5 +62,6 @@ body {
 }
 
 .container {
-    margin: 40px 300px;
+    width: 100%;
+    margin: auto;
   }
