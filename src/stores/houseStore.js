@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import api from "@/api.js";
+import { getGlobalThis } from "@vue/shared";
 
 export const useHousesStore = defineStore("housesStore", {
   state: () => ({
@@ -54,6 +55,7 @@ export const useHousesStore = defineStore("housesStore", {
   actions: {
     async getHousesList() {
       this.listOfHouses = await api.getListHouses();
+      console.log("houses refreshed");
       return this.listOfHouses;
     },
     async deleteHouse(id) {
@@ -69,6 +71,7 @@ export const useHousesStore = defineStore("housesStore", {
     async createNewHouse(house, image) {
       const newHouse = await api.createHouse(house);
       await api.uploadImage(newHouse.id, image);
+      await this.getHousesList();
       // const houseToAdd = this.getHouseById(newHouse.id);
       // // this.listOfHouses[this.listOfHouses.length] = newHouseFullInfo;
       // console.log("after-", houseToAdd);
@@ -77,10 +80,11 @@ export const useHousesStore = defineStore("housesStore", {
     },
     async editHouse(houseId, house, image) {
       await api.editHouse(houseId, house);
-
       if (image !== null) {
         await api.uploadImage(houseId, image);
       }
+      await this.getHousesList();
+      console.log("edit end");
     },
     changeSearchField() {
       // this.search =

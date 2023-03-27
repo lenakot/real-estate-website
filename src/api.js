@@ -30,6 +30,7 @@ export default {
     });
   },
   async editHouse(id, house) {
-    await HTTP.post(`/houses/${id}`, house);
+    const response = await HTTP.post(`/houses/${id}`, house);
+    return response.data;
   },
 };
