@@ -1,26 +1,50 @@
 <template>
-    <div class="wrapper">
-        <div class="wrapper-title">Recommended for you</div>
-        <HousesList />
+    <div class="recommend-title">Recommended for you</div>
+    <House v-for="house of recommendedHouses" :key='house.id' :house="house" />
+    <div v-if='recommendedHouses.length === 0' class="recommend-text">
+        There are no available houses in the same city.
     </div>
 </template>
 
 <script setup>
-import HousesList from '@/components/HousesList.vue'
+import House from '@/components/House.vue'
+import { useHousesStore } from '@/stores/houseStore.js'
+import { onMounted, ref } from 'vue';
+
+const props = defineProps({
+    city: {
+        type: String,
+    },
+    currentHouseId: {
+        type: String,
+    }
+})
+const housesStore = useHousesStore()
+
+const recommendedHouses = ref([])
+onMounted(async () => {
+    recommendedHouses.value = housesStore.getRecommendations(props.city, props.currentHouseId)
+})
 </script>
 
-<style lang='scss' scoped>
-.wrapper {
-    display: flex;
-    flex-direction: column;
+<style lang="scss" scoped>
+.recommend-title {
+    font-family: var(--montserrat);
+    font-size: var(--header-2-desktop);
+    font-weight: var(--bold);
+    margin-bottom: 5px;
 
-    gap: 10px;
+    @media screen and (max-width: 767px) {
+        font-size: var(--header-2-mobile)
+    }
+}
 
-    &-title {
-        font-family: var(--montserrat);
-        font-size: 22px;
-        font-weight: bold;
-        padding-left: 5px;
+.recommend-text {
+    font-family: var(--open-sans);
+    font-size: var(--body-text-desktop);
+
+    @media screen and (max-width: 767px) {
+        font-size: var(--body-text-mobile);
     }
 }
 </style>
