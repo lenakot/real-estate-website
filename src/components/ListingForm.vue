@@ -2,33 +2,32 @@
     <div class="listing">
         <div class="listing-form">
             <form @submit.prevent="handleSubmit">
-                <label for=" street" class="listing-form-title">Street name*</label><br>
-                <input required class="listing-form-input listing-form-placeholder" type="text" id="street" name="street"
-                    placeholder="Enter the street name" v-model="currentHouse.streetName"><br>
+                <label for=" street" class="listing-form-title">Street name*</label>
+                <input required class="listing-form-input listing-form-placeholder" type="text" name="street"
+                    placeholder="Enter the street name" v-model="currentHouse.streetName">
 
                 <div class="listing-form-two-columns">
                     <div>
-                        <label for="houseNum" class="listing-form-title">House number*</label><br>
-                        <input required class="listing-form-input listing-form-placeholder" type="text" id="houseNum"
-                            name="houseNum" placeholder="Enter house number" v-model="currentHouse.houseNumber"><br>
+                        <label for="houseNum" class="listing-form-title">House number*</label>
+                        <input required class="listing-form-input listing-form-placeholder" type="text" name="houseNum"
+                            placeholder="Enter house number" v-model="currentHouse.houseNumber">
                     </div>
-
                     <div>
                         <label for="addition" class="listing-form-title">Addition
-                            (optional)</label><br>
-                        <input class="listing-form-input listing-form-placeholder" type="text" id="addition" name="addition"
-                            placeholder="e.g. A" v-model="currentHouse.numberAddition"><br>
+                            (optional)</label>
+                        <input class="listing-form-input listing-form-placeholder" type="text" name="addition"
+                            placeholder="e.g. A" v-model="currentHouse.numberAddition">
                     </div>
 
                 </div>
-                <label for="postCode" class="listing-form-title">Postal code*</label><br>
-                <input required class="listing-form-input listing-form-placeholder" type="text" id="postCode"
-                    name="postCode" placeholder="e.g. 1000 AA" v-model="currentHouse.zip"><br>
-                <label for="city" class="listing-form-title">City*</label><br>
-                <input required class="listing-form-input listing-form-placeholder" type="text" id="city" name="city"
-                    placeholder="e.g. Utrecht" v-model="currentHouse.city"><br>
+                <label for="postCode" class="listing-form-title">Postal code*</label>
+                <input required class="listing-form-input listing-form-placeholder" type="text" name="postCode"
+                    placeholder="e.g. 1000 AA" v-model="currentHouse.zip">
+                <label for="city" class="listing-form-title">City*</label>
+                <input required class="listing-form-input listing-form-placeholder" type="text" name="city"
+                    placeholder="e.g. Utrecht" v-model="currentHouse.city">
 
-                <label for="defImageBtn" class="listing-form-title">Upload picture (PNG or JPG)*</label><br>
+                <label for="defImageBtn" class="listing-form-title">Upload picture (PNG or JPG)*</label>
                 <div class="listing-form-block">
                     <div class="listing-form-block listing-form-block-active" v-if="currentImageUrl == ''"
                         @click="uploadImage">
@@ -41,19 +40,19 @@
                         ref="inputFile" @change="displayImage" name="defImageBtn" accept="image/png, image/jpeg">
                 </div>
 
-                <label for="price" class="listing-form-title">Price*</label><br>
-                <input required class="listing-form-input listing-form-placeholder" type="text" id="price" name="price"
-                    placeholder="e.g. €150.000" v-model="currentHouse.price"><br>
+                <label for="price" class="listing-form-title">Price*</label>
+                <input required class="listing-form-input listing-form-placeholder" type="text" name="price"
+                    placeholder="e.g. €150.000" v-model="currentHouse.price">
 
                 <div class="listing-form-two-columns">
                     <div>
-                        <label for="size" class="listing-form-title">Size*</label><br>
-                        <input required class="listing-form-input listing-form-placeholder" type="text" id="size"
-                            name="size" placeholder="e.g. 60m2" v-model="currentHouse.size"><br>
+                        <label for="size" class="listing-form-title">Size*</label>
+                        <input required class="listing-form-input listing-form-placeholder" type="text" name="size"
+                            placeholder="e.g. 60m2" v-model="currentHouse.size">
                     </div>
                     <div class="garage-block">
                         <label for="garage" class="listing-form-title">Garage*</label>
-                        <select required id="garage" name="garage" class="listing-form-input  garage-block-select"
+                        <select required name="garage" class="listing-form-input  garage-block-select"
                             v-model="currentHouse.hasGarage">
                             <option disabled selected class="garage-block-option" value="Select">Select</option>
                             <option class="garage-block-option" value="true">Yes</option>
@@ -66,22 +65,21 @@
                 <div class="listing-form-two-columns">
                     <div>
                         <label for=" bedroom" class="listing-form-title">Bedrooms*</label><br>
-                        <input required class="listing-form-input listing-form-placeholder" type="text" id="bedroom"
-                            name="bedroom" placeholder="Enter amount" v-model="currentHouse.bedrooms"><br>
+                        <input required class="listing-form-input listing-form-placeholder" type="text" name="bedroom"
+                            placeholder="Enter amount" v-model="currentHouse.bedrooms"><br>
                     </div>
                     <div><label for="bathroom" class="listing-form-title">Bathrooms*</label><br>
-                        <input required class="listing-form-input listing-form-placeholder" type="text" id="bathroom"
-                            name="bathroom" placeholder="Enter amount" v-model="currentHouse.bathrooms"><br>
+                        <input required class="listing-form-input listing-form-placeholder" type="text" name="bathroom"
+                            placeholder="Enter amount" v-model="currentHouse.bathrooms"><br>
                     </div>
                 </div>
 
                 <label for="constructionDate" class="listing-form-title">Construction date*</label><br>
-                <input required class="listing-form-input listing-form-placeholder" type="text" id="constructionDate"
-                    name="constructionDate" placeholder="e.g. 1990" v-model="currentHouse.constructionYear"><br>
+                <input required class="listing-form-input listing-form-placeholder" type="text" name="constructionDate"
+                    placeholder="e.g. 1990" v-model="currentHouse.constructionYear"><br>
                 <label for="description" class="listing-form-title">Description*</label><br>
                 <textarea required class="listing-form-input listing-form-placeholder listing-form-description" type="text"
-                    id="description" name="description" placeholder="Enter description"
-                    v-model="currentHouse.description" /><br>
+                    name="description" placeholder="Enter description" v-model="currentHouse.description" /><br>
 
                 <input v-if='houseId === undefined' class="listing-submit" type="submit" value="POST">
                 <input v-else class="listing-submit" type="submit" value="SAVE">
@@ -91,7 +89,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onUpdated, ref } from 'vue';
 import { useHousesStore } from '@/stores/houseStore.js'
 import { useRouter } from 'vue-router'
 const router = useRouter()
@@ -117,10 +115,10 @@ const currentHouse = ref({
     hasGarage: true,
     description: 'Foooo',
 })
-const currentImageUrl = ref('') // для src
+const currentImageUrl = ref('') // specified as a path to src
 
-const inputFile = ref(); // скрытое поле для выбора
-const imageFile = ref(null) //для отправки на сервер\
+const inputFile = ref(); // hidden input button
+const imageFile = ref(null) // image path to send request
 
 function uploadImage() {
     inputFile.value.click();
@@ -167,7 +165,7 @@ function parseAddress(address) {
     return { street, number, additional }
 }
 
-onMounted(async () => {
+onUpdated(async () => {
     const house = housesStore.getHouseById(props.houseId)
     const address = parseAddress(house.location.street)
     currentImageUrl.value = house.image
@@ -214,7 +212,7 @@ onMounted(async () => {
         margin-top: 25px;
         width: 60%;
         font-family: var(--montserrat);
-        font-size: var(--buttons-n-tabs-mobile);
+        font-size: var(--buttons-n-tabs-desktop);
         font-weight: var(--semibold);
         color: var(--background2);
         cursor: pointer;
@@ -222,8 +220,8 @@ onMounted(async () => {
         @media screen and (max-width: 767px) {
             margin: 0;
             width: 100%;
+            font-size: var(--buttons-n-tabs-desktop);
         }
-
     }
 }
 
@@ -266,7 +264,7 @@ onMounted(async () => {
         width: inherit;
         outline: none;
         font-size: var(--input-field-desktop);
-
+        pointer-events: painted;
 
         @media screen and (max-width: 767px) {
             width: 100%;
@@ -277,6 +275,7 @@ onMounted(async () => {
     &-two-columns {
         display: flex;
         justify-content: space-between;
+        gap: 10px;
 
         @media screen and (max-width: 767px) {
             display: grid;
@@ -343,7 +342,6 @@ onMounted(async () => {
         display: flex;
         flex-direction: column;
         width: 100%;
-        margin-left: 10px;
         position: relative;
 
         @media screen and (max-width: 767px) {
@@ -395,6 +393,15 @@ onMounted(async () => {
 
 form {
     width: inherit;
+}
+
+form:invalid {
+    font-size: var(--error-message-desktop);
+    font-style: italic;
+
+    @media screen and (max-width: 767px) {
+        font-size: var(--error-message-mobile);
+    }
 }
 
 select {

@@ -42,7 +42,7 @@
     --empty-state-message-desktop: 18px;
     --empty-state-message-mobile: 14px;
     --error-message-desktop: 14px;
-    --error-message-desktop: 12px;
+    --error-message-mobile: 12px;
     --listing-info-desktop: 16px;
     --listing-info-mobile: 12px;
     --body-text-desktop: 18px;
@@ -64,5 +64,5 @@ body {
 
 .container {
     width: 100%;
-    margin: auto;
+    margin: 0;
   }
