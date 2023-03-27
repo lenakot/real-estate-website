@@ -1,15 +1,14 @@
 <template>
-  <Header />
   <div class="container" v-if="loaded">
+    <Header />
     <router-view />
-    <!-- <ListingForm/> -->
   </div>
 </template>
 
 <script setup>
 import Header from '@/components/Layout/Header.vue'
 import { useHousesStore } from '@/stores/houseStore.js'
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, ref, onMounted, onUnmounted } from 'vue';
 const housesStore = useHousesStore()
 const loaded = ref(false)
 
