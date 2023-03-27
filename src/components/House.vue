@@ -40,16 +40,19 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .house {
-    margin: 10px;
+    margin: 10px 0;
     padding: 20px;
-    width: auto;
-
     background: var(--background2);
     border-radius: 10px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 20px;
+
+    @media screen and (max-width: 767px) {
+        margin: 20px 0;
+        gap: 10px;
+        padding: 15px 10px;
+    }
 
     &-image {
         width: 150px;
@@ -57,6 +60,11 @@ const props = defineProps({
         border-radius: 10px;
         object-fit: cover;
         flex-grow: 0;
+
+        @media screen and (max-width: 767px) {
+            width: 100px;
+            height: 100px;
+        }
     }
 
     &-description {
@@ -67,17 +75,26 @@ const props = defineProps({
 
         &-street {
             font-family: var(--montserrat);
-            font-size: 22px;
-            font-weight: bold;
+            font-size: var(--header-2-desktop);
+            font-weight: var(--bold);
             color: var(--text-primary);
             text-decoration: none;
+
+            @media screen and (max-width: 767px) {
+                font-size: var(--header-2-mobile);
+            }
         }
 
         &-price,
         &-index {
             font-family: var(--open-sans);
-            font-size: 18px;
-            color: var(--text-secondary)
+            font-size: var(--body-text-desktop);
+
+            @media screen and (max-width: 767px) {
+                font-size: var(--body-text-mobile);
+            }
+
+            color: var(--text-secondary);
         }
 
         &-index {
@@ -88,16 +105,29 @@ const props = defineProps({
             display: flex;
             gap: 10px;
 
+            @media screen and (max-width: 767px) {
+                gap: 5px;
+            }
+
             &__icon {
                 width: 25px;
                 height: 25px;
                 object-fit: contain;
+
+                @media screen and (max-width: 767px) {
+                    width: 15px;
+                    height: 15px;
+                }
             }
 
             &__title {
                 font-family: var(--open-sans);
-                font-size: 18px;
-                color: var(--text-primary)
+                font-size: var(--body-text-desktop);
+                color: var(--text-primary);
+
+                @media screen and (max-width: 767px) {
+                    font-size: var(--body-text-mobile);
+                }
             }
         }
     }
@@ -108,11 +138,21 @@ const props = defineProps({
         gap: 20px;
         padding-top: 20px;
 
+        @media screen and (max-width: 767px) {
+            padding-top: 0px;
+            gap: 5px;
+        }
+
         &__icon {
             width: 20px;
             height: 20px;
             cursor: pointer;
             opacity: 0.5;
+
+            @media screen and (max-width: 767px) {
+                width: 15px;
+                height: 15px
+            }
         }
 
         &__icon:hover {

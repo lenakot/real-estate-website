@@ -187,14 +187,20 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .listing {
-    background-image: url(/png/img_background@3x.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin: 0 -300px -40px 0;
+    margin: 0 300px;
     display: flex;
     flex-direction: column;
     gap: 30px;
     padding-bottom: 40px;
+    max-width: 100vw;
+
+    @media screen and (max-width: 1150px) {
+        margin: 40px 150px;
+    }
+
+    @media screen and (max-width: 767px) {
+        margin: 40px 30px;
+    }
 
     &-submit {
         background: var(--primary);
@@ -205,10 +211,16 @@ onMounted(async () => {
         margin-top: 25px;
         width: 60%;
         font-family: var(--montserrat);
-        font-size: 18px;
-        font-weight: 600;
+        font-size: var(--buttons-n-tabs-mobile);
+        font-weight: var(--semibold);
         color: var(--background2);
         cursor: pointer;
+
+        @media screen and (max-width: 767px) {
+            margin: 0;
+            width: 100%;
+        }
+
     }
 }
 
@@ -217,17 +229,29 @@ onMounted(async () => {
     flex-direction: column;
     width: 400px;
 
+    @media screen and (max-width: 767px) {
+        width: 100%;
+    }
+
     &-title {
         font-family: var(--open-sans);
-        font-size: 14px;
-        font-weight: 600;
+        font-size: var(--input-title-desktop);
+        font-weight: var(--semibold);
         color: var(--text-secondary);
+
+        @media screen and (max-width: 767px) {
+            font-size: var(--input-title-mobile);
+        }
     }
 
     &-placeholder {
         font-family: var(--open-sans);
-        font-weight: 400;
-        font-size: 14px;
+        font-weight: var(--regular);
+        font-size: var(--input-title-desktop);
+
+        @media screen and (max-width: 767px) {
+            font-size: var(--input-title-mobile);
+        }
     }
 
     &-input {
@@ -238,11 +262,24 @@ onMounted(async () => {
         margin: 10px 0;
         width: inherit;
         outline: none;
+        font-size: var(--input-field-desktop);
+
+
+        @media screen and (max-width: 767px) {
+            width: 100%;
+            font-size: var(--input-field-mobile);
+        }
     }
 
     &-two-columns {
         display: flex;
         justify-content: space-between;
+
+        @media screen and (max-width: 767px) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
     }
 
     &-block {
@@ -306,6 +343,10 @@ onMounted(async () => {
         margin-left: 10px;
         position: relative;
 
+        @media screen and (max-width: 767px) {
+            margin-left: 0;
+        }
+
         &-arrows {
             display: block;
             position: absolute;
@@ -323,10 +364,10 @@ onMounted(async () => {
             position: absolute;
             top: 12px;
             right: 5px;
-            font-size: 15px;
+            font-size: var(--input-field-desktop);
             font-family: var(--open-sans);
             color: var(--quaternary);
-            font-weight: 600;
+            font-weight: var(--semibold);
             transform: rotate(90deg);
         }
 

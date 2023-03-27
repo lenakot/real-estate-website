@@ -36,40 +36,64 @@ function goBack() {
 <style lang="scss" scoped>
 .wrapper {
     position: fixed;
+    top: 0;
+    right: 0;
     width: 100%;
     height: 100%;
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
 }
 
 .delete {
-    position: fixed;
     margin: -40px -300px;
-    top: 50%;
-    left: 50%;
     width: 500px;
     height: auto;
     background: var(--background2);
     display: flex;
     flex-direction: column;
     text-align: center;
-    gap: 20px;
+    gap: 30px;
     padding: 50px;
     border-radius: 10px;
 
+    @media screen and (max-width: 1150px) {
+        width: 400px;
+        margin: 10px;
+    }
+
+    @media screen and (max-width: 767px) {
+        padding: 25px;
+    }
+
     &-title {
         font-family: var(--montserrat);
-        font-size: 22px;
+        font-size: var(--header-2-desktop);
         font-weight: bold;
+
+        @media screen and (max-width: 1150px) {
+            font-size: 18px;
+        }
+
+        @media screen and (max-width: 767px) {
+            font-size: var(--header-2-mobile);
+        }
     }
 
     &-description {
         font-family: var(--open-sans);
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--text-secondary)
+        font-size: var(--body-text-desktop);
+        font-weight: var(--regular);
+        color: var(--text-secondary);
+
+        @media screen and (max-width: 1150px) {
+            font-size: 14px;
+        }
+
+        @media screen and (max-width: 767px) {
+            font-size: var(--body-text-mobile);
+        }
     }
 
     &-buttons {
@@ -78,10 +102,14 @@ function goBack() {
         gap: 20px;
         height: 100%;
 
+        @media screen and (max-width: 767px) {
+            gap: 10px;
+        }
+
         &__button {
             font-family: var(--montserrat);
-            font-size: 18px;
-            font-weight: bold;
+            font-size: var(--buttons-n-tabs-desktop);
+            font-weight: var(--bold);
             padding: 10px;
             color: var(--background2);
             width: 300px;
@@ -89,6 +117,15 @@ function goBack() {
             border-radius: 10px;
             cursor: pointer;
             text-decoration: none;
+
+            @media screen and (max-width: 1150px) {
+                width: 200px;
+                font-size: 16px;
+            }
+
+            @media screen and (max-width: 767px) {
+                font-size: var(--buttons-n-tabs-mobile);
+            }
 
 
             &__yes {

@@ -1,5 +1,7 @@
 <template>
-    <HouseDetails :houseId="route.params.id" :key="route.params.id" />
+    <div class="container">
+        <HouseDetails :houseId="route.params.id" :key="route.params.id" />
+    </div>
 </template>
 
 <script setup>
