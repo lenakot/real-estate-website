@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import Header from '@/components/Layout/Header.vue'
+import Header from '@/components/layout/Header.vue'
 import { useHousesStore } from '@/stores/houseStore.js'
 import { onBeforeMount, ref } from 'vue'
 const housesStore = useHousesStore()

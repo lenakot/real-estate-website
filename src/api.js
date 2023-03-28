@@ -14,7 +14,7 @@ export default {
         return response.data
     },
     async createHouse(house) {
-        const response = await HTTP.post(`/houses`, house)
+        const response = await HTTP.post("/houses", house)
         return response.data
     },
     async deleteHouse(id) {
