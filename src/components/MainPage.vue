@@ -18,8 +18,10 @@
                         name="search" v-model="housesStore.search" ref="search">
                 </form>
                 <div class="sort-wrapper">
-                    <div @click='sortByPrice' class="sort-wrapper-price sort-wrapper-title">Price</div>
-                    <div @click='sortBySize' class="sort-wrapper-size sort-wrapper-title">Size</div>
+                    <div @click='sortByPrice' class="sort-wrapper-price sort-wrapper-title"
+                        :class="{ active: housesStore.sortParam === 'price' }">Price</div>
+                    <div @click='sortBySize' class="sort-wrapper-size sort-wrapper-title"
+                        :class="{ active: housesStore.sortParam === 'size' }">Size</div>
                 </div>
             </div>
             <div v-if="housesStore.search != ''" class="found">Found: {{ housesStore.filter.length }}</div>
@@ -36,8 +38,8 @@
 <script setup>
 import House from '@/components/House.vue'
 import { useHousesStore } from '@/stores/houseStore.js'
-import { useMobileVersion } from '@/mobileVersion.js'
-const isMobile = useMobileVersion()
+import { useIsMobileVersion } from '@/mobileVersion.js'
+const isMobile = useIsMobileVersion()
 
 const housesStore = useHousesStore()
 
@@ -51,7 +53,6 @@ function sortByPrice() {
 function sortBySize() {
     housesStore.sortParam = 'size'
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -185,15 +186,23 @@ function sortBySize() {
     }
 
     &-price {
-        background: var(--primary);
+        background: var(--quaternary);
         border-top-left-radius: 10px;
         border-end-start-radius: 10px;
+    }
+
+    &-price.active {
+        background: var(--primary);
     }
 
     &-size {
         background: var(--quaternary);
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
+    }
+
+    &-size.active {
+        background: var(--primary);
     }
 
     &-title {
@@ -208,6 +217,7 @@ function sortBySize() {
             font-size: var(--buttons-n-tabs-mobile);
             padding: 12px;
         }
+
     }
 }
 
