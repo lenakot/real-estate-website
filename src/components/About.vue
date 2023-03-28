@@ -2,17 +2,10 @@
     <div class="about-wrapper">
         <div v-if="isMobile" class="about-wrapper-page-title">About</div>
         <div class="about-wrapper-title">About DTT Real Estate</div>
-        <div class="about-wrapper-description about-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod
-            tempor
-            incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-            ex ea commodo consequat.
-            <br />
-            <br />
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-            deserunt mollit anim id est laborum.
+        <div class="about-wrapper-text">Unfortunately, since I didn't have any experience working with Vue, I encountered
+            a lot of bugs along the way and had to constantly google for solutions, etc.
+
+            Regardless of the results, it was a very interesting journey. Thank you :)
         </div>
         <div class="about-wrapper-title">Design and Development</div>
         <div class="about-block">
@@ -29,8 +22,8 @@
 
 
 <script setup>
-import { useMobileVersion } from '@/mobileVersion.js'
-const isMobile = useMobileVersion()
+import { useIsMobileVersion } from '@/mobileVersion.js'
+const isMobile = useIsMobileVersion()
 </script>
 
 
@@ -70,6 +63,30 @@ const isMobile = useMobileVersion()
             font-size: var(--header-2-mobile);
         }
     }
+
+    &-text {
+        font-family: var(--open-sans);
+        font-size: var(--body-text-desktop);
+        font-weight: var(--regular);
+        color: var(--text-secondary);
+
+        @media screen and (max-width: 767px) {
+            font-size: var(--body-text-mobile);
+        }
+
+        &-link {
+            color: var(--hyperlink);
+            text-decoration: none;
+            font-family: var(--open-sans);
+            font-size: var(--body-text-desktop);
+            font-weight: var(--regular);
+
+            @media screen and (max-width: 767px) {
+                font-size: var(--body-text-mobile);
+            }
+        }
+
+    }
 }
 
 .about-block {
@@ -91,30 +108,6 @@ const isMobile = useMobileVersion()
         justify-content: center;
     }
 
-
-}
-
-.about-text {
-    font-family: var(--open-sans);
-    font-size: var(--body-text-desktop);
-    font-weight: var(--regular);
-    color: var(--text-secondary);
-
-    @media screen and (max-width: 767px) {
-        font-size: var(--body-text-mobile);
-    }
-
-    &-link {
-        color: var(--hyperlink);
-        text-decoration: none;
-        font-family: var(--open-sans);
-        font-size: var(--body-text-desktop);
-        font-weight: var(--regular);
-
-        @media screen and (max-width: 767px) {
-            font-size: var(--body-text-mobile);
-        }
-    }
 
 }
 </style>
