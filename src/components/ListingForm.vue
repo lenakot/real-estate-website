@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-import { onUpdated, ref } from 'vue';
+import { onUpdated, ref } from 'vue'
 import { useHousesStore } from '@/stores/houseStore.js'
 import { useRouter } from 'vue-router'
 const router = useRouter()
@@ -117,20 +117,20 @@ const currentHouse = ref({
 })
 const currentImageUrl = ref('') // specified as a path to src
 
-const inputFile = ref(); // hidden input button
+const inputFile = ref() // hidden input button
 const imageFile = ref(null) // image path to send request
 
 function uploadImage() {
-    inputFile.value.click();
+    inputFile.value.click()
 }
 
 function displayImage() {
     const image = inputFile.value.files[0]
     imageFile.value = image
-    if (image.size < 2000000) {
+    if (image.size < 5000000) {
         currentImageUrl.value = URL.createObjectURL(image)
     } else {
-        alert("Image size more than 2MB");
+        alert("Image size more than 5MB")
     }
 }
 
@@ -165,7 +165,7 @@ function parseAddress(address) {
     return { street, number, additional }
 }
 
-onUpdated(async () => {
+onUpdated(() => {
     const house = housesStore.getHouseById(props.houseId)
     const address = parseAddress(house.location.street)
     currentImageUrl.value = house.image

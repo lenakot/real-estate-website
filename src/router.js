@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory } from "vue-router";
-import Index from "@/Views/Index.vue";
-import About from "@/Views/About.vue";
-import HouseDetails from "@/Views/HouseDetails.vue";
-import CreateNewListing from "@/Views/CreateNewListing.vue";
-import EditListing from "@/Views/EditListing.vue";
+import { createRouter, createWebHistory } from "vue-router"
+import Index from "@/Views/Index.vue"
+import About from "@/Views/About.vue"
+import HouseDetails from "@/Views/HouseDetails.vue"
+import CreateNewListing from "@/Views/CreateNewListing.vue"
+import EditListing from "@/Views/EditListing.vue"
 
 const router = createRouter({
     history: createWebHistory(),
@@ -34,6 +34,6 @@ const router = createRouter({
             component: EditListing,
         },
     ],
-});
+})
 
-export default router;
+export default router

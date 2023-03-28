@@ -9,7 +9,7 @@
 <script setup>
 import House from '@/components/House.vue'
 import { useHousesStore } from '@/stores/houseStore.js'
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue'
 
 const props = defineProps({
     city: {
@@ -22,7 +22,7 @@ const props = defineProps({
 const housesStore = useHousesStore()
 
 const recommendedHouses = ref([])
-onMounted(async () => {
+onMounted(() => {
     recommendedHouses.value = housesStore.getRecommendations(props.city, props.currentHouseId)
 })
 </script>
@@ -33,6 +33,7 @@ onMounted(async () => {
     font-size: var(--header-2-desktop);
     font-weight: var(--bold);
     margin-bottom: 5px;
+    white-space: nowrap;
 
     @media screen and (max-width: 767px) {
         font-size: var(--header-2-mobile)

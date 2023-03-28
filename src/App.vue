@@ -8,7 +8,7 @@
 <script setup>
 import Header from '@/components/Layout/Header.vue'
 import { useHousesStore } from '@/stores/houseStore.js'
-import { onBeforeMount, ref, onMounted, onUnmounted } from 'vue';
+import { onBeforeMount, ref } from 'vue'
 const housesStore = useHousesStore()
 const loaded = ref(false)
 
