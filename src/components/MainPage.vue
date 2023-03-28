@@ -36,7 +36,9 @@
 <script setup>
 import House from '@/components/House.vue'
 import { useHousesStore } from '@/stores/houseStore.js'
-import { ref, onMounted, onUnmounted } from 'vue';
+import { useMobileVersion } from '@/mobileVersion.js'
+const isMobile = useMobileVersion()
+
 const housesStore = useHousesStore()
 
 function clearInput() {
@@ -50,19 +52,6 @@ function sortBySize() {
     housesStore.sortParam = 'size'
 }
 
-const isMobile = ref(false);
-const checkIfMobile = () => {
-    isMobile.value = window.innerWidth < 768;
-}
-
-onMounted(async () => {
-    window.addEventListener("resize", checkIfMobile);
-    checkIfMobile();
-});
-
-onUnmounted(async () => {
-    window.removeEventListener("resize", checkIfMobile);
-});
 </script>
 
 <style lang="scss" scoped>
@@ -118,7 +107,7 @@ onUnmounted(async () => {
             color: var(--background2);
             font-family: var(--montserrat);
             font-weight: var(--bold);
-            font-size: var(----buttons-n-tabs-desktop);
+            font-size: var(--buttons-n-tabs-desktop);
         }
 
         &-image {
@@ -150,6 +139,10 @@ onUnmounted(async () => {
     display: flex;
     gap: 10px;
 
+    @media screen and (max-width: 1200px) {
+        width: 250px;
+    }
+
     @media screen and (max-width: 767px) {
         width: auto;
     }
@@ -170,6 +163,10 @@ onUnmounted(async () => {
         font-weight: var(--regular);
         color: var(--text-primary);
         outline: none;
+
+        @media screen and (max-width: 1200px) {
+            width: 250px;
+        }
 
         @media screen and (max-width: 767px) {
             font-size: var(--input-title-mobile);
@@ -203,13 +200,13 @@ onUnmounted(async () => {
         color: var(--background2);
         font-family: var(--montserrat);
         font-weight: var(--bold);
-        font-size: var(----buttons-n-tabs-desktop);
+        font-size: var(--buttons-n-tabs-desktop);
         text-align: center;
-        padding: 8px;
+        padding: 10px;
 
         @media screen and (max-width: 767px) {
-            font-size: var(----buttons-n-tabs-mobile);
-            padding: 13px;
+            font-size: var(--buttons-n-tabs-mobile);
+            padding: 12px;
         }
     }
 }

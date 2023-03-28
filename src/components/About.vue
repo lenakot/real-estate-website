@@ -1,6 +1,6 @@
 <template>
     <div class="about-wrapper">
-        <div v-if="isMobile" class="about-wrapper-page-title">Houses</div>
+        <div v-if="isMobile" class="about-wrapper-page-title">About</div>
         <div class="about-wrapper-title">About DTT Real Estate</div>
         <div class="about-wrapper-description about-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod
@@ -29,21 +29,8 @@
 
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-
-const isMobile = ref(false);
-const checkIfMobile = () => {
-    isMobile.value = window.innerWidth < 768;
-}
-
-onMounted(async () => {
-    window.addEventListener("resize", checkIfMobile);
-    checkIfMobile();
-});
-
-onUnmounted(async () => {
-    window.removeEventListener("resize", checkIfMobile);
-});
+import { useMobileVersion } from '@/mobileVersion.js'
+const isMobile = useMobileVersion()
 </script>
 
 

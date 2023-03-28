@@ -9,26 +9,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { useMobileVersion } from '@/mobileVersion.js'
+const isMobile = useMobileVersion()
 const props = defineProps({
     houseId: {
         type: String,
     },
 })
 
-const isMobile = ref(false);
-const checkIfMobile = () => {
-    isMobile.value = window.innerWidth < 768;
-}
-
-onMounted(async () => {
-    window.addEventListener("resize", checkIfMobile);
-    checkIfMobile();
-});
-
-onUnmounted(async () => {
-    window.removeEventListener("resize", checkIfMobile);
-});
 </script>
 
 <style lang="scss" scoped>

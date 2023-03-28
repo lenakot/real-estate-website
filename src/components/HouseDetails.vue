@@ -19,7 +19,6 @@
             <div v-else></div>
             <div v-if="isVisibleDeleteBlock">
                 <DeleteHouse :house='currentHouse' @goBack="toogleDeleteBlock" />
-                <GrayBackground />
             </div>
 
         </div>
@@ -99,7 +98,6 @@
                                 class="house-detail-description__tools__icon"></div>
                         <div v-if="isVisibleDeleteBlock">
                             <DeleteHouse :house='currentHouse' @goBack="toogleDeleteBlock" />
-                            <GrayBackground />
                         </div>
                     </div>
                 </div>
@@ -117,10 +115,11 @@
 <script setup>
 import RecommendationsList from '@/components/RecommendationsList.vue'
 import DeleteHouse from '@/components/DeleteHouse.vue'
-import GrayBackground from '@/components/GrayBackground.vue'
-import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
+import { ref, onMounted, watchEffect } from 'vue'
 import { useHousesStore } from '@/stores/houseStore.js'
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router'
+import { useMobileVersion } from '@/mobileVersion.js'
+const isMobile = useMobileVersion()
 
 const props = defineProps({
     houseId: {
@@ -142,21 +141,10 @@ function toogleDeleteBlock() {
     isVisibleDeleteBlock.value = !isVisibleDeleteBlock.value
 }
 
-const isMobile = ref(false);
-const checkIfMobile = () => {
-    isMobile.value = window.innerWidth < 768;
-}
-
-onMounted(async () => {
-    window.addEventListener("resize", checkIfMobile);
-    checkIfMobile();
+onMounted(() => {
     isVisibleDeleteBlock.value = route.query.showDelete
     router.replace({ query: {} }) // remove the param from address
-});
-
-onUnmounted(async () => {
-    window.removeEventListener("resize", checkIfMobile);
-});
+})
 </script>
 
 <style lang="scss" scoped>
@@ -273,7 +261,8 @@ onUnmounted(async () => {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: 20px;
+            gap: 10px;
+            white-space: nowrap;
 
             @media screen and (max-width: 767px) {
                 gap: 5px;
@@ -288,6 +277,7 @@ onUnmounted(async () => {
                 display: flex;
                 align-items: center;
                 gap: 5px;
+                white-space: nowrap;
 
                 @media screen and (max-width: 1200px) {
                     font-size: 28px;
@@ -320,6 +310,7 @@ onUnmounted(async () => {
                     font-size: var(--listing-info-desktop);
                     font-weight: var(--semibold);
                     color: var(--text-secondary);
+                    white-space: nowrap;
 
                     @media screen and (max-width: 1200px) {
                         font-size: 14px;

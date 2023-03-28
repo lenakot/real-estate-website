@@ -1,6 +1,6 @@
 <template>
     <div v-if="isMobile">
-        <div class="header-mobile" ref="headerDiv">
+        <div class="header-mobile">
             <div class="header-mobile-menu">
                 <router-link to='/' class="header-mobile-menu-links header-mobile-menu-links__houses"
                     :class="{ active: isActive('/') }"></router-link>
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div v-else>
-        <div class="header" ref="headerDiv">
+        <div class="header">
             <div class="header-menu">
                 <router-link to="/"><img src="/png/img_logo_dtt@3x.png" alt="logo" class="header-menu-image"></router-link>
                 <router-link to='/' class="header-menu-links" :class="{ active: isActive('/') }">Houses</router-link>
@@ -22,34 +22,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
 import { useRouter } from 'vue-router'
+import { useMobileVersion } from '@/mobileVersion.js'
+const isMobile = useMobileVersion()
 
-const isMobile = ref(false);
-const checkIfMobile = () => {
-    isMobile.value = window.innerWidth < 768;
-}
-
-const headerDiv = ref()
 const router = useRouter()
 
 function isActive(href) {
     if (router.currentRoute.value.path == "/about") {
         return href == "/about";
     }
-    return href != "/about";;
+    return href != "/about";
 }
-
-onMounted(async () => {
-    window.addEventListener("resize", checkIfMobile);
-    checkIfMobile();
-});
-
-onUnmounted(async () => {
-    window.removeEventListener("resize", checkIfMobile);
-});
-
-
 </script>
 
 <style lang="scss" scoped>
