@@ -1,5 +1,6 @@
 <template>
     <div class="wrapper">
+        <div class="grayBackground"></div>
         <div class="delete">
             <div class="delete-title">Delete listing</div>
             <div class="delete-description">Are you sure you want to delete this listing?<br />
@@ -46,6 +47,18 @@ function goBack() {
     align-items: center;
 }
 
+.grayBackground {
+    margin: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--secondary);
+    opacity: 0.8;
+    z-index: 1;
+}
+
 .delete {
     margin: -40px -300px;
     width: 500px;
@@ -57,6 +70,7 @@ function goBack() {
     gap: 30px;
     padding: 50px;
     border-radius: 10px;
+    z-index: 2;
 
     @media screen and (max-width: 1200px) {
         width: 400px;

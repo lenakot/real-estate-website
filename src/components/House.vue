@@ -48,6 +48,11 @@ const props = defineProps({
     display: flex;
     align-items: center;
     gap: 20px;
+    min-width: fit-content;
+
+    @media screen and (max-width: 1200px) {
+        gap: 15px;
+    }
 
     @media screen and (max-width: 767px) {
         margin: 20px 0;
@@ -80,6 +85,7 @@ const props = defineProps({
             font-weight: var(--bold);
             color: var(--text-primary);
             text-decoration: none;
+            white-space: nowrap;
 
             @media screen and (max-width: 767px) {
                 font-size: var(--header-2-mobile);
@@ -125,6 +131,7 @@ const props = defineProps({
                 font-family: var(--open-sans);
                 font-size: var(--body-text-desktop);
                 color: var(--text-primary);
+                white-space: nowrap;
 
                 @media screen and (max-width: 767px) {
                     font-size: var(--body-text-mobile);
@@ -137,7 +144,11 @@ const props = defineProps({
         display: flex;
         align-self: flex-start;
         gap: 20px;
-        padding-top: 20px;
+        padding-top: 15px;
+
+        @media screen and (max-width: 1200px) {
+            gap: 10px;
+        }
 
         @media screen and (max-width: 767px) {
             padding-top: 0px;
