@@ -54,7 +54,7 @@
                         <label for="garage" class="listing-form-title">Garage*</label>
                         <select required name="garage" class="listing-form-input  garage-block-select"
                             v-model="currentHouse.hasGarage">
-                            <option disabled selected class="garage-block-option" value="Select">Select</option>
+                            <option disabled selected class="garage-block-option" value="select">Select</option>
                             <option class="garage-block-option" value="true">Yes</option>
                             <option class="garage-block-option" value="false">No</option>
                         </select>
@@ -80,16 +80,16 @@
                 <label for="description" class="listing-form-title">Description*</label>
                 <textarea required class="listing-form-input listing-form-placeholder listing-form-description" type="text"
                     name="description" placeholder="Enter description" v-model="currentHouse.description"></textarea>
-
                 <input v-if='houseId === undefined' class="listing-submit" type="submit" value="POST">
                 <input v-else class="listing-submit" type="submit" value="SAVE">
             </form>
         </div>
+        <div v-if='error != ""' class="error">{{ error }}</div>
     </div>
 </template>
 
 <script setup>
-import { onUpdated, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useHousesStore } from '@/stores/houseStore.js'
 import { useRouter } from 'vue-router'
 const router = useRouter()
@@ -112,7 +112,7 @@ const currentHouse = ref({
     zip: '',
     city: '',
     constructionYear: '',
-    hasGarage: '',
+    hasGarage: 'select',
     description: '',
 })
 const currentImageUrl = ref('') // specified as a path to src
@@ -139,13 +139,18 @@ function deleteImage() {
     inputFile.value.value = ''
 }
 
-function handleSubmit() {
-    if (props.houseId === undefined) {
-        housesStore.createNewHouse(currentHouse.value, imageFile.value)
-        router.push('/')
-    } else {
-        housesStore.editHouse(props.houseId, currentHouse.value, imageFile.value)
-        router.push(`/house/${props.houseId}`)
+const error = ref('')
+async function handleSubmit() {
+    try {
+        if (props.houseId === undefined) {
+            const newHouseId = await housesStore.createNewHouse(currentHouse.value, imageFile.value)
+            router.push(`/house/${newHouseId}`)
+        } else {
+            await housesStore.editHouse(props.houseId, currentHouse.value, imageFile.value)
+            router.push(`/house/${props.houseId}`)
+        }
+    } catch (e) {
+        error.value = 'Something went wrong. Reload the page and try again later.'
     }
 }
 
@@ -164,8 +169,8 @@ function parseAddress(address) {
     return { street, number, additional }
 }
 
-onUpdated(() => {
-    if (props.houseId) {
+onMounted(() => {
+    if (props.houseId !== undefined) {
         const house = housesStore.getHouseById(props.houseId)
         const address = parseAddress(house.location.street)
         currentImageUrl.value = house.image
@@ -195,6 +200,7 @@ onUpdated(() => {
     gap: 30px;
     padding-bottom: 40px;
     max-width: 100vw;
+    position: relative;
 
     @media screen and (max-width: 1200px) {
         margin: 0 150px;
@@ -415,5 +421,35 @@ input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.error {
+    font-family: var(--montserrat);
+    font-size: var(--buttons-n-tabs-desktop);
+    font-weight: var(--bold);
+    color: var(--tertiary);
+    font-style: italic;
+    background: var(--secondary);
+    text-align: center;
+    opacity: 0.8;
+    border-radius: 15px;
+    position: absolute;
+    top: 50%;
+    right: 35%;
+    width: 525px;
+    height: 125px;
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width: 1200px) {
+        top: 50%;
+        right: 20%;
+    }
+
+    @media screen and (max-width: 767px) {
+        top: 35%;
+        right: 0%;
+        width: inherit;
+    }
 }
 </style>
