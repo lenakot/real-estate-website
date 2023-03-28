@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="listing-container">
         <CreateNewListingHeader />
         <ListingForm />
     </div>
@@ -9,11 +9,3 @@
 import CreateNewListingHeader from '@/components/NewListingHeader.vue'
 import ListingForm from '@/components/ListingForm.vue'
 </script>
-
-<style lang="scss" scoped>
-.container {
-    background-image: url(/png/img_background@3x.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-</style>
