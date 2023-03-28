@@ -118,8 +118,8 @@ import DeleteHouse from '@/components/DeleteHouse.vue'
 import { ref, onMounted, watchEffect } from 'vue'
 import { useHousesStore } from '@/stores/houseStore.js'
 import { useRoute, useRouter } from 'vue-router'
-import { useMobileVersion } from '@/mobileVersion.js'
-const isMobile = useMobileVersion()
+import { useIsMobileVersion } from '@/mobileVersion.js'
+const isMobile = useIsMobileVersion()
 
 const props = defineProps({
     houseId: {

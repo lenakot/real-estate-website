@@ -9,8 +9,8 @@
 </template>
 
 <script setup>
-import { useMobileVersion } from '@/mobileVersion.js'
-const isMobile = useMobileVersion()
+import { useIsMobileVersion } from '@/mobileVersion.js'
+const isMobile = useIsMobileVersion()
 </script>
 
 

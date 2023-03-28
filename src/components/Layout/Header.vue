@@ -23,8 +23,8 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { useMobileVersion } from '@/mobileVersion.js'
-const isMobile = useMobileVersion()
+import { useIsMobileVersion } from '@/mobileVersion.js'
+const isMobile = useIsMobileVersion()
 
 const router = useRouter()
 
@@ -32,7 +32,7 @@ function isActive(href) {
     if (router.currentRoute.value.path == "/about") {
         return href == "/about";
     }
-    return href != "/about";
+    return href != "/about"; //чтобы когда создаю дом и тд вкладка была черной
 }
 </script>
 
