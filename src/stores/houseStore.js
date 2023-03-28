@@ -5,7 +5,7 @@ export const useHousesStore = defineStore("housesStore", {
     state: () => ({
         listOfHouses: [],
         search: "",
-        sortParam: "",
+        sortParam: "price", //default param
     }),
     getters: {
         getHouseById: (state) => {
@@ -73,6 +73,7 @@ export const useHousesStore = defineStore("housesStore", {
             const newHouse = await api.createHouse(house)
             await api.uploadImage(newHouse.id, image)
             await this.getHousesList()
+            return newHouse.id
         },
         async editHouse(houseId, house, image) {
             await api.editHouse(houseId, house)
