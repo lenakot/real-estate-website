@@ -9,7 +9,7 @@
                 <div class="listing-form-two-columns">
                     <div>
                         <label for="houseNum" class="listing-form-title">House number*</label>
-                        <input required class="listing-form-input listing-form-placeholder" type="text" name="houseNum"
+                        <input required class="listing-form-input listing-form-placeholder" type="number" name="houseNum"
                             placeholder="Enter house number" v-model="currentHouse.houseNumber">
                     </div>
                     <div>
@@ -41,13 +41,13 @@
                 </div>
 
                 <label for="price" class="listing-form-title">Price*</label>
-                <input required class="listing-form-input listing-form-placeholder" type="text" name="price"
+                <input required class="listing-form-input listing-form-placeholder" type="number" name="price"
                     placeholder="e.g. €150.000" v-model="currentHouse.price">
 
                 <div class="listing-form-two-columns">
                     <div>
                         <label for="size" class="listing-form-title">Size*</label>
-                        <input required class="listing-form-input listing-form-placeholder" type="text" name="size"
+                        <input required class="listing-form-input listing-form-placeholder" type="number" name="size"
                             placeholder="e.g. 60m2" v-model="currentHouse.size">
                     </div>
                     <div class="garage-block">
@@ -64,22 +64,22 @@
                 </div>
                 <div class="listing-form-two-columns">
                     <div>
-                        <label for=" bedroom" class="listing-form-title">Bedrooms*</label><br>
-                        <input required class="listing-form-input listing-form-placeholder" type="text" name="bedroom"
-                            placeholder="Enter amount" v-model="currentHouse.bedrooms"><br>
+                        <label for=" bedroom" class="listing-form-title">Bedrooms*</label>
+                        <input required class="listing-form-input listing-form-placeholder" type="number" name="bedroom"
+                            placeholder="Enter amount" v-model="currentHouse.bedrooms">
                     </div>
-                    <div><label for="bathroom" class="listing-form-title">Bathrooms*</label><br>
-                        <input required class="listing-form-input listing-form-placeholder" type="text" name="bathroom"
-                            placeholder="Enter amount" v-model="currentHouse.bathrooms"><br>
+                    <div><label for="bathroom" class="listing-form-title">Bathrooms*</label>
+                        <input required class="listing-form-input listing-form-placeholder" type="number" name="bathroom"
+                            placeholder="Enter amount" v-model="currentHouse.bathrooms">
                     </div>
                 </div>
 
-                <label for="constructionDate" class="listing-form-title">Construction date*</label><br>
-                <input required class="listing-form-input listing-form-placeholder" type="text" name="constructionDate"
-                    placeholder="e.g. 1990" v-model="currentHouse.constructionYear"><br>
-                <label for="description" class="listing-form-title">Description*</label><br>
+                <label for="constructionDate" class="listing-form-title">Construction date*</label>
+                <input required class="listing-form-input listing-form-placeholder" type="number" name="constructionDate"
+                    placeholder="e.g. 1990" v-model="currentHouse.constructionYear">
+                <label for="description" class="listing-form-title">Description*</label>
                 <textarea required class="listing-form-input listing-form-placeholder listing-form-description" type="text"
-                    name="description" placeholder="Enter description" v-model="currentHouse.description" /><br>
+                    name="description" placeholder="Enter description" v-model="currentHouse.description"></textarea>
 
                 <input v-if='houseId === undefined' class="listing-submit" type="submit" value="POST">
                 <input v-else class="listing-submit" type="submit" value="SAVE">
@@ -102,18 +102,18 @@ const props = defineProps({
 })
 
 const currentHouse = ref({
-    price: 123,
-    bedrooms: 1,
-    bathrooms: 2,
-    size: 55,
-    streetName: 'Laliala',
-    houseNumber: 123,
-    numberAddition: 'X',
-    zip: '1234XY',
-    city: 'Lalala',
-    constructionYear: 2001,
-    hasGarage: true,
-    description: 'Foooo',
+    price: '',
+    bedrooms: '',
+    bathrooms: '',
+    size: '',
+    streetName: '',
+    houseNumber: '',
+    numberAddition: '',
+    zip: '',
+    city: '',
+    constructionYear: '',
+    hasGarage: '',
+    description: '',
 })
 const currentImageUrl = ref('') // specified as a path to src
 
@@ -140,7 +140,6 @@ function deleteImage() {
 }
 
 function handleSubmit() {
-    console.log('handlesubmit - ', currentHouse.value)
     if (props.houseId === undefined) {
         housesStore.createNewHouse(currentHouse.value, imageFile.value)
         router.push('/')
@@ -166,22 +165,24 @@ function parseAddress(address) {
 }
 
 onUpdated(() => {
-    const house = housesStore.getHouseById(props.houseId)
-    const address = parseAddress(house.location.street)
-    currentImageUrl.value = house.image
-    currentHouse.value = {
-        price: house.price,
-        bedrooms: house.rooms.bedrooms,
-        bathrooms: house.rooms.bathrooms,
-        size: house.size,
-        streetName: address.street,
-        houseNumber: address.number,
-        numberAddition: address.additional,
-        zip: house.location.zip,
-        city: house.location.city,
-        constructionYear: house.constructionYear,
-        hasGarage: house.hasGarage,
-        description: house.description,
+    if (props.houseId) {
+        const house = housesStore.getHouseById(props.houseId)
+        const address = parseAddress(house.location.street)
+        currentImageUrl.value = house.image
+        currentHouse.value = {
+            price: house.price,
+            bedrooms: house.rooms.bedrooms,
+            bathrooms: house.rooms.bathrooms,
+            size: house.size,
+            streetName: address.street,
+            houseNumber: address.number,
+            numberAddition: address.additional,
+            zip: house.location.zip,
+            city: house.location.city,
+            constructionYear: house.constructionYear,
+            hasGarage: house.hasGarage,
+            description: house.description,
+        }
     }
 })
 </script>
@@ -196,11 +197,11 @@ onUpdated(() => {
     max-width: 100vw;
 
     @media screen and (max-width: 1200px) {
-        margin: 40px 150px;
+        margin: 0 150px;
     }
 
     @media screen and (max-width: 767px) {
-        margin: 40px 30px;
+        margin: 0 30px;
     }
 
     &-submit {
@@ -239,6 +240,7 @@ onUpdated(() => {
         font-size: var(--input-title-desktop);
         font-weight: var(--semibold);
         color: var(--text-secondary);
+        font-style: normal;
 
         @media screen and (max-width: 767px) {
             font-size: var(--input-title-mobile);
@@ -395,6 +397,7 @@ form {
     width: inherit;
 }
 
+
 form:invalid {
     font-size: var(--error-message-desktop);
     font-style: italic;
@@ -406,5 +409,11 @@ form:invalid {
 
 select {
     height: 50px;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 </style>

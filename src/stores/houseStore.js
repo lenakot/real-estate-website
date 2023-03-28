@@ -80,7 +80,6 @@ export const useHousesStore = defineStore("housesStore", {
                 await api.uploadImage(houseId, image)
             }
             await this.getHousesList()
-            console.log("edit end")
         },
     },
 })
