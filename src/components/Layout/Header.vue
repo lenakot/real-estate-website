@@ -32,7 +32,7 @@ function isActive(href) {
     if (router.currentRoute.value.path == "/about") {
         return href == "/about";
     }
-    return href != "/about"; //чтобы когда создаю дом и тд вкладка была черной
+    return href != "/about"; // Makes 'houses' tab active in all cases (creating/editing a home, viewing details, etc.) if the 'about' tab is not open
 }
 </script>
 
