@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import Header from '@/components/layout/Header.vue'
+import Header from '@/components/Layout/Header.vue'
 import Preloader from '@/components//Preloader.vue'
 import { useHousesStore } from '@/stores/houseStore.js'
 import { onBeforeMount, ref } from 'vue'
