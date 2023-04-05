@@ -189,12 +189,7 @@
                   v$.house.hasGarage.$errors.length,
               }"
             >
-              <option
-                disabled
-                selected
-                class="garage-block-option"
-                value="select"
-              >
+              <option disabled selected class="garage-block-option" value="">
                 Select
               </option>
               <option class="garage-block-option" value="true">Yes</option>
@@ -338,7 +333,7 @@ const state = ref({
     zip: "",
     city: "",
     constructionYear: "",
-    hasGarage: "select",
+    hasGarage: "",
     description: "",
   },
   imgUrl: "",
