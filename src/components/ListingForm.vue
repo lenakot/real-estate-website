@@ -2,86 +2,164 @@
     <div class="listing">
         <div class="listing-form">
             <form @submit.prevent="handleSubmit">
-                <label for=" street" class="listing-form-title">Street name*</label>
-                <input required class="listing-form-input listing-form-placeholder" type="text" name="street"
-                    placeholder="Enter the street name" v-model="currentHouse.streetName">
+
+                <!-- street block -->
+                <label for="street" class="listing-form-title">Street name*</label>
+                <!--
+                     classes for displaying validation errors - :class="{ 'listing-form-input__invalid': v$.house.streetName/houseNumber/etc.$errors.length }"
+                -->
+                <input class="listing-form-input listing-form-placeholder"
+                    :class="{ 'listing-form-input__invalid': v$.house.streetName.$errors.length }" type="text" name="street"
+                    placeholder="Enter the street name" v-model="v$.house.streetName.$model">
+                <div v-if="v$.house.streetName.$errors.length" class="listing-form-input__invalid__message">
+                    {{ v$.house.streetName.$errors[0].$message }}
+                </div>
 
                 <div class="listing-form-two-columns">
+                    <!-- number of house block -->
                     <div>
                         <label for="houseNum" class="listing-form-title">House number*</label>
-                        <input required class="listing-form-input listing-form-placeholder" type="number" name="houseNum"
-                            placeholder="Enter house number" v-model="currentHouse.houseNumber">
+                        <input class="listing-form-input listing-form-placeholder"
+                            :class="{ 'listing-form-input__invalid': v$.house.houseNumber.$errors.length }" type="number"
+                            name="houseNum" placeholder="Enter house number" v-model="v$.house.houseNumber.$model">
+                        <div v-if="v$.house.houseNumber.$errors.length" class="listing-form-input__invalid__message">
+                            {{ v$.house.houseNumber.$errors[0].$message }}
+                        </div>
                     </div>
+
+                    <!-- addition block -->
                     <div>
                         <label for="addition" class="listing-form-title">Addition
                             (optional)</label>
                         <input class="listing-form-input listing-form-placeholder" type="text" name="addition"
-                            placeholder="e.g. A" v-model="currentHouse.numberAddition">
+                            placeholder="e.g. A" v-model="state.numberAddition">
                     </div>
-
                 </div>
-                <label for="postCode" class="listing-form-title">Postal code*</label>
-                <input required class="listing-form-input listing-form-placeholder" type="text" name="postCode"
-                    placeholder="e.g. 1000 AA" v-model="currentHouse.zip">
-                <label for="city" class="listing-form-title">City*</label>
-                <input required class="listing-form-input listing-form-placeholder" type="text" name="city"
-                    placeholder="e.g. Utrecht" v-model="currentHouse.city">
 
+                <!-- zip block -->
+                <label for="postCode" class="listing-form-title">Postal code*</label>
+                <input class="listing-form-input listing-form-placeholder"
+                    :class="{ 'listing-form-input__invalid': v$.house.zip.$errors.length }" type="text" name="postCode"
+                    placeholder="e.g. 1000 AA" v-model="v$.house.zip.$model">
+                <div v-if="v$.house.zip.$errors.length" class="listing-form-input__invalid__message">
+                    {{ v$.house.zip.$errors[0].$message }}
+                </div>
+
+                <!-- name of city block -->
+                <label for="city" class="listing-form-title">City*</label>
+                <input class="listing-form-input listing-form-placeholder"
+                    :class="{ 'listing-form-input__invalid': v$.house.city.$errors.length }" type="text" name="city"
+                    placeholder="e.g. Utrecht" v-model="v$.house.city.$model">
+                <div v-if="v$.house.city.$errors.length" class="listing-form-input__invalid__message">
+                    {{ v$.house.city.$errors[0].$message }}
+                </div>
+
+                <!-- upload picture block -->
                 <label for="defImageBtn" class="listing-form-title">Upload picture (PNG or JPG)*</label>
+                <div v-if="v$.imgUrl.$errors.length" class="listing-form-input__invalid__message">
+                    {{ v$.imgUrl.$errors[0].$message }}
+                </div>
                 <div class="listing-form-block">
-                    <div class="listing-form-block listing-form-block-active" v-if="currentImageUrl == ''"
-                        @click="uploadImage">
+                    <!-- displays an empty field for uploading an image (when creating a new house) -->
+                    <div class="listing-form-block listing-form-block-active"
+                        :class="{ 'listing-form-block-active__invalid': v$.imgUrl.$errors.length }"
+                        v-if="v$.imgUrl.$model == ''" @click="uploadImage">
                     </div>
+                    <!-- displays an image of house (when editing house) -->
                     <div class="listing-form-block" v-else>
-                        <img class="listing-form-block__image" :src='currentImageUrl'>
+                        <img class="listing-form-block__image" :src='v$.imgUrl.$model'>
                         <div class="listing-form-block-remove" @click="deleteImage"></div>
                     </div>
-                    <input :required="currentImageUrl === ''" class="listing-form-block-input-file" type="file"
-                        ref="inputFile" @change="displayImage" name="defImageBtn" accept="image/png, image/jpeg">
+                    <!-- hidden button  -->
+                    <input class="listing-form-block-input-file" type="file" ref="inputFile" @change="displayImage"
+                        name="defImageBtn" accept="image/png, image/jpeg">
                 </div>
 
+                <!-- price block -->
                 <label for="price" class="listing-form-title">Price*</label>
-                <input required class="listing-form-input listing-form-placeholder" type="number" name="price"
-                    placeholder="e.g. €150.000" v-model="currentHouse.price">
+                <input class="listing-form-input listing-form-placeholder"
+                    :class="{ 'listing-form-input__invalid': v$.house.price.$errors.length }" type="number" name="price"
+                    placeholder="e.g. €150000" v-model="v$.house.price.$model">
+                <div v-if="v$.house.price.$errors.length" class="listing-form-input__invalid__message">
+                    {{ v$.house.price.$errors[0].$message }}
+                </div>
 
                 <div class="listing-form-two-columns">
+                    <!-- size block -->
                     <div>
                         <label for="size" class="listing-form-title">Size*</label>
-                        <input required class="listing-form-input listing-form-placeholder" type="number" name="size"
-                            placeholder="e.g. 60m2" v-model="currentHouse.size">
+                        <input class="listing-form-input listing-form-placeholder"
+                            :class="{ 'listing-form-input__invalid': v$.house.size.$errors.length }" type="number"
+                            name="size" placeholder="e.g. 60m2" v-model="v$.house.size.$model">
+                        <div v-if="v$.house.size.$errors.length" class="listing-form-input__invalid__message">
+                            {{ v$.house.size.$errors[0].$message }}
+                        </div>
                     </div>
+
+                    <!-- garage block -->
                     <div class="garage-block">
                         <label for="garage" class="listing-form-title">Garage*</label>
-                        <select required name="garage" class="listing-form-input  garage-block-select"
-                            v-model="currentHouse.hasGarage">
+                        <select name="garage" class="listing-form-input  garage-block-select"
+                            :class="{ 'listing-form-input__invalid': v$.house.hasGarage.$errors.length }"
+                            v-model="v$.house.hasGarage.$model">
                             <option disabled selected class="garage-block-option" value="select">Select</option>
                             <option class="garage-block-option" value="true">Yes</option>
                             <option class="garage-block-option" value="false">No</option>
                         </select>
-
                         <span class='garage-block-arrows'></span>
+                        <div v-if="v$.house.hasGarage.$errors.length" class="listing-form-input__invalid__message">
+                            Choose option
+                        </div>
                     </div>
                 </div>
+
                 <div class="listing-form-two-columns">
+                    <!-- bedroom quantity block. -->
                     <div>
                         <label for=" bedroom" class="listing-form-title">Bedrooms*</label>
-                        <input required class="listing-form-input listing-form-placeholder" type="number" name="bedroom"
-                            placeholder="Enter amount" v-model="currentHouse.bedrooms">
+                        <input class="listing-form-input listing-form-placeholder"
+                            :class="{ 'listing-form-input__invalid': v$.house.bedrooms.$errors.length }" type="number"
+                            name="bedroom" placeholder="Enter amount" v-model="v$.house.bedrooms.$model">
+                        <div v-if="v$.house.bedrooms.$errors.length" class="listing-form-input__invalid__message">
+                            {{ v$.house.bedrooms.$errors[0].$message }}
+                        </div>
                     </div>
-                    <div><label for="bathroom" class="listing-form-title">Bathrooms*</label>
-                        <input required class="listing-form-input listing-form-placeholder" type="number" name="bathroom"
-                            placeholder="Enter amount" v-model="currentHouse.bathrooms">
+
+                    <!-- bathroom quantity block. -->
+                    <div>
+                        <label for="bathroom" class="listing-form-title">Bathrooms*</label>
+                        <input class="listing-form-input listing-form-placeholder"
+                            :class="{ 'listing-form-input__invalid': v$.house.bathrooms.$errors.length }" type="number"
+                            name="bathroom" placeholder="Enter amount" v-model="v$.house.bathrooms.$model">
+                        <div v-if="v$.house.bathrooms.$errors.length" class="listing-form-input__invalid__message">
+                            {{ v$.house.bathrooms.$errors[0].$message }}
+                        </div>
                     </div>
                 </div>
 
+                <!-- construction date block -->
                 <label for="constructionDate" class="listing-form-title">Construction date*</label>
-                <input required class="listing-form-input listing-form-placeholder" type="number" name="constructionDate"
-                    placeholder="e.g. 1990" v-model="currentHouse.constructionYear">
+                <input class="listing-form-input listing-form-placeholder"
+                    :class="{ 'listing-form-input__invalid': v$.house.constructionYear.$errors.length }" type="number"
+                    name="constructionDate" placeholder="e.g. 1990" v-model="v$.house.constructionYear.$model">
+                <div v-if="v$.house.constructionYear.$errors.length" class="listing-form-input__invalid__message">
+                    {{ v$.house.constructionYear.$errors[0].$message }}
+                </div>
+
+                <!-- description block -->
                 <label for="description" class="listing-form-title">Description*</label>
-                <textarea required class="listing-form-input listing-form-placeholder listing-form-description" type="text"
-                    name="description" placeholder="Enter description" v-model="currentHouse.description"></textarea>
-                <input v-if='houseId === undefined' class="listing-submit" type="submit" value="POST">
+                <textarea class="listing-form-input listing-form-placeholder listing-form-description"
+                    :class="{ 'listing-form-input__invalid': v$.house.description.$errors.length }" type="text"
+                    name="description" placeholder="Enter description" v-model="v$.house.description.$model"></textarea>
+                <div v-if="v$.house.description.$errors.length" class="listing-form-input__invalid__message">
+                    {{ v$.house.description.$errors[0].$message }}
+                </div>
+
+
+                <input :disabled="v$.$invalid" v-if='houseId === undefined' class="listing-submit" type="submit"
+                    value="POST">
                 <input v-else class="listing-submit" type="submit" value="SAVE">
+
             </form>
         </div>
         <div v-if='error != ""' class="error">{{ error }}</div>
@@ -89,7 +167,9 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { useVuelidate } from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import { onMounted, ref, reactive } from 'vue'
 import { useHousesStore } from '@/stores/houseStore.js'
 import { useRouter } from 'vue-router'
 const router = useRouter()
@@ -101,58 +181,42 @@ const props = defineProps({
     },
 })
 
-const currentHouse = ref({
-    price: '',
-    bedrooms: '',
-    bathrooms: '',
-    size: '',
-    streetName: '',
-    houseNumber: '',
-    numberAddition: '',
-    zip: '',
-    city: '',
-    constructionYear: '',
-    hasGarage: 'select',
-    description: '',
+const state = ref({
+    house: {
+        price: '',
+        bedrooms: '',
+        bathrooms: '',
+        size: '',
+        streetName: '',
+        houseNumber: '',
+        numberAddition: '',
+        zip: '',
+        city: '',
+        constructionYear: '',
+        hasGarage: 'select',
+        description: '',
+    },
+    imgUrl: '',
 })
-const currentImageUrl = ref('') // specified as a path to src
 
-const inputFile = ref() // hidden input button
-const imageFile = ref(null) // image path to send request
-
-function uploadImage() {
-    inputFile.value.click()
+const rules = {
+    house: {
+        price: { required },
+        bedrooms: { required },
+        bathrooms: { required },
+        size: { required },
+        streetName: { required },
+        houseNumber: { required },
+        zip: { required },
+        city: { required },
+        constructionYear: { required },
+        hasGarage: { required },
+        description: { required },
+    },
+    imgUrl: { required },
 }
 
-function displayImage() {
-    const image = inputFile.value.files[0]
-    imageFile.value = image
-    if (image.size < 5000000) {
-        currentImageUrl.value = URL.createObjectURL(image)
-    } else {
-        alert("Image size more than 5MB")
-    }
-}
-
-function deleteImage() {
-    currentImageUrl.value = ''
-    inputFile.value.value = ''
-}
-
-const error = ref('')
-async function handleSubmit() {
-    try {
-        if (props.houseId === undefined) {
-            const newHouseId = await housesStore.createNewHouse(currentHouse.value, imageFile.value)
-            router.push(`/house/${newHouseId}`)
-        } else {
-            await housesStore.editHouse(props.houseId, currentHouse.value, imageFile.value)
-            router.push(`/house/${props.houseId}`)
-        }
-    } catch (e) {
-        error.value = 'Something went wrong. Reload the page and try again later.'
-    }
-}
+const v$ = useVuelidate(rules, state)
 
 const addressRegex = /^(.+?)\s+(\d+)(\w*)$/
 
@@ -173,8 +237,7 @@ onMounted(() => {
     if (props.houseId !== undefined) {
         const house = housesStore.getHouseById(props.houseId)
         const address = parseAddress(house.location.street)
-        currentImageUrl.value = house.image
-        currentHouse.value = {
+        state.value.house = {
             price: house.price,
             bedrooms: house.rooms.bedrooms,
             bathrooms: house.rooms.bathrooms,
@@ -188,8 +251,48 @@ onMounted(() => {
             hasGarage: house.hasGarage,
             description: house.description,
         }
+        state.value.imgUrl = house.image
     }
 })
+
+const inputFile = ref() // hidden input button
+const imageFile = ref(null) // image path to send request
+
+function uploadImage() {
+    inputFile.value.click()
+}
+
+function displayImage() {
+    const image = inputFile.value.files[0]
+    imageFile.value = image
+    if (image.size < 5000000) {
+        state.value.imgUrl = URL.createObjectURL(image)
+        v$.value.imgUrl.$touch()
+    } else {
+        alert("Image size more than 5MB")
+    }
+}
+
+function deleteImage() {
+    state.value.imgUrl = ''
+    inputFile.value.value = ''
+    v$.value.imgUrl.$touch()
+}
+
+const error = ref('')
+async function handleSubmit() {
+    try {
+        if (props.houseId === undefined) {
+            const newHouseId = await housesStore.createNewHouse(state.value.house, imageFile.value)
+            router.push(`/house/${newHouseId}`)
+        } else {
+            await housesStore.editHouse(props.houseId, state.value.house, imageFile.value)
+            router.push(`/house/${props.houseId}`)
+        }
+    } catch (e) {
+        error.value = 'Something went wrong. Reload the page and try again later.'
+    }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -223,12 +326,17 @@ onMounted(() => {
         font-weight: var(--semibold);
         color: var(--background2);
         cursor: pointer;
+        opacity: 1;
 
         @media screen and (max-width: 767px) {
             margin: 0;
             width: 100%;
             font-size: var(--buttons-n-tabs-desktop);
         }
+    }
+
+    &-submit:disabled {
+        opacity: 0.7;
     }
 }
 
@@ -278,6 +386,26 @@ onMounted(() => {
             width: 100%;
             font-size: var(--input-field-mobile);
         }
+
+        &__invalid {
+            border: 2px solid var(--primary);
+
+            &__message {
+                font-size: var(--error-message-desktop);
+                font-style: italic;
+                margin: 5px 0 15px 0;
+                color: var(--primary);
+
+
+                @media screen and (max-width: 767px) {
+                    font-size: var(--error-message-mobile);
+                }
+            }
+        }
+
+        &__invalid::placeholder {
+            color: red;
+        }
     }
 
     &-two-columns {
@@ -304,6 +432,10 @@ onMounted(() => {
             background-repeat: no-repeat;
             background-size: 30px 30px;
             background-position: center;
+
+            &__invalid {
+                border: 2px dashed var(--primary);
+            }
         }
 
         &-remove {
@@ -392,25 +524,14 @@ onMounted(() => {
 
     &-description::placeholder {
         position: absolute;
-        top: 10px;
+        top: 5px;
         left: 10px;
         padding: 10px;
-
     }
 }
 
 form {
     width: inherit;
-}
-
-
-form:invalid {
-    font-size: var(--error-message-desktop);
-    font-style: italic;
-
-    @media screen and (max-width: 767px) {
-        font-size: var(--error-message-mobile);
-    }
 }
 
 select {
