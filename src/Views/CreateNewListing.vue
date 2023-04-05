@@ -1,11 +1,11 @@
 <template>
   <div class="listing-container">
-    <CreateNewListingHeader />
+    <ListinFormHeader />
     <ListingForm />
   </div>
 </template>
 
 <script setup>
-import CreateNewListingHeader from "@/components/NewListingHeader.vue";
+import ListinFormHeader from "@/components/ListinFormHeader.vue";
 import ListingForm from "@/components/ListingForm.vue";
 </script>
