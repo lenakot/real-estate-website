@@ -14,8 +14,9 @@
             <div class="search-and-sort">
                 <div class="search-wrapper">
                     <img class='search-wrapper-image' src="/png/ic_search@3x.png" alt="search">
-                    <input class='search-wrapper-input' @click="clearInput()" type="text" placeholder="Search for a house"
-                        name="search" v-model="housesStore.search" ref="search">
+                    <input class='search-wrapper-input' type="text" placeholder="Search for a house" name="search"
+                        v-model="housesStore.search" ref="search">
+                    <div class="search-wrapper-input-clear" v-if="housesStore.search !== ''" @click="clearInput()"></div>
                 </div>
                 <div class="sort-wrapper">
                     <div @click='sortByPrice' class="sort-wrapper-price sort-wrapper-title"
@@ -138,10 +139,11 @@ function sortBySize() {
     border-radius: 10px;
     background: var(--tertiary);
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 5px;
 
     @media screen and (max-width: 1200px) {
-        width: 250px;
+        width: 300px;
     }
 
     @media screen and (max-width: 767px) {
@@ -164,6 +166,7 @@ function sortBySize() {
         font-weight: var(--regular);
         color: var(--text-primary);
         outline: none;
+        flex-grow: 1;
 
         @media screen and (max-width: 1200px) {
             width: 250px;
@@ -171,6 +174,16 @@ function sortBySize() {
 
         @media screen and (max-width: 767px) {
             font-size: var(--input-title-mobile);
+        }
+
+        &-clear {
+            background: url(/png/ic_clear@3x.png);
+            width: 30px;
+            height: 25px;
+            object-fit: cover;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+            background-position: center;
         }
     }
 }
@@ -211,7 +224,7 @@ function sortBySize() {
         font-weight: var(--bold);
         font-size: var(--buttons-n-tabs-desktop);
         text-align: center;
-        padding: 10px;
+        padding: 8px;
 
         @media screen and (max-width: 767px) {
             font-size: var(--buttons-n-tabs-mobile);
