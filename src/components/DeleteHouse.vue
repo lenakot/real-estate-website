@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="grayBackground"></div>
+    <div class="grayBackground" @click="goBack"></div>
     <div class="delete">
       <div class="delete-title">Delete listing</div>
       <div class="delete-description">
