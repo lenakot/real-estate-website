@@ -9,12 +9,7 @@ export const useHousesStore = defineStore("housesStore", {
   }),
   getters: {
     getHouseById: (state) => {
-      return (id) =>
-        state.listOfHouses.find((house) => {
-          if (house.id == id) {
-            return house;
-          }
-        });
+      return (id) => state.listOfHouses.find((house) => house.id == id);
     },
     filter() {
       const filteredHouses = this.listOfHouses.filter(
@@ -63,11 +58,11 @@ export const useHousesStore = defineStore("housesStore", {
     },
     async deleteHouse(id) {
       await api.deleteHouse(id);
-      for (let house of this.listOfHouses) {
+      this.listOfHouses.forEach((house, index) => {
         if (house.id === id) {
-          this.listOfHouses.splice(this.listOfHouses.indexOf(house), 1);
+          this.listOfHouses.splice(index, 1);
         }
-      }
+      });
     },
     async createNewHouse(house, image) {
       const newHouse = await api.createHouse(house);
