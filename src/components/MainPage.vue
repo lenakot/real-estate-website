@@ -12,11 +12,11 @@
                 </router-link>
             </div>
             <div class="search-and-sort">
-                <form class="search-wrapper" action="#">
+                <div class="search-wrapper">
                     <img class='search-wrapper-image' src="/png/ic_search@3x.png" alt="search">
                     <input class='search-wrapper-input' @click="clearInput()" type="text" placeholder="Search for a house"
                         name="search" v-model="housesStore.search" ref="search">
-                </form>
+                </div>
                 <div class="sort-wrapper">
                     <div @click='sortByPrice' class="sort-wrapper-price sort-wrapper-title"
                         :class="{ active: housesStore.sortParam === 'price' }">Price</div>
