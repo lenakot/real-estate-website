@@ -1,75 +1,72 @@
-@import url('https://fonts.cdnfonts.com/css/montserrat');
-@import url('https://fonts.cdnfonts.com/css/open-sans');
+@import url("https://fonts.cdnfonts.com/css/montserrat");
+@import url("https://fonts.cdnfonts.com/css/open-sans");
 
 :root {
-    // fonts
-    --montserrat: 'Montserrat', sans-serif;
-    --open-sans: 'Open Sans', sans-serif;
+  // fonts
+  --montserrat: "Montserrat", sans-serif;
+  --open-sans: "Open Sans", sans-serif;
 
-    // element colors
-    --primary: #EB5440;
-    --secondary: #4A4B4C;
-    --tertiary: #E8E8E8;
-    --quaternary: #C3C3C3;
-    --background1: #F6F6F6;
-    --background2: #FFFFFF;
+  // element colors
+  --primary: #eb5440;
+  --secondary: #4a4b4c;
+  --tertiary: #e8e8e8;
+  --quaternary: #c3c3c3;
+  --background1: #f6f6f6;
+  --background2: #ffffff;
 
-    // text colors
-    --text-primary: rgb(0, 0, 0);
-    --text-secondary: rgb(74, 75, 76);
-    --hyperlink: rgb(6, 12, 194);
+  // text colors
+  --text-primary: rgb(0, 0, 0);
+  --text-secondary: rgb(74, 75, 76);
+  --hyperlink: rgb(6, 12, 194);
 
-    //font-weight
-    --bold: 700;
-    --semibold: 600;
-    --medium: 500;
-    --regular: 400;
+  //font-weight
+  --bold: 700;
+  --semibold: 600;
+  --medium: 500;
+  --regular: 400;
 
-    //font-size
-    --header-1-desktop: 32px;
-    --header-1-mobile: 22px;
-    --header-2-desktop: 22px;
-    --header-2-mobile: 14px;
-    --desktop-active-menu: 18px;
-    --desktop-inactive-menu: 18px;
-    --buttons-n-tabs-desktop: 18px;
-    --buttons-n-tabs-mobile: 12px;
-    --back-button-label-desktop: 16px;
-    --input-title-desktop: 14px;
-    --input-title-mobile: 12px;
-    --input-field-desktop: 14px;
-    --input-field-mobile: 12px;
-    --empty-state-message-desktop: 18px;
-    --empty-state-message-mobile: 14px;
-    --error-message-desktop: 14px;
-    --error-message-mobile: 12px;
-    --listing-info-desktop: 16px;
-    --listing-info-mobile: 12px;
-    --body-text-desktop: 18px;
-    --body-text-mobile: 12px;
-
-
-
+  //font-size
+  --header-1-desktop: 32px;
+  --header-1-mobile: 22px;
+  --header-2-desktop: 22px;
+  --header-2-mobile: 14px;
+  --desktop-active-menu: 18px;
+  --desktop-inactive-menu: 18px;
+  --buttons-n-tabs-desktop: 18px;
+  --buttons-n-tabs-mobile: 12px;
+  --back-button-label-desktop: 16px;
+  --input-title-desktop: 14px;
+  --input-title-mobile: 12px;
+  --input-field-desktop: 14px;
+  --input-field-mobile: 12px;
+  --empty-state-message-desktop: 18px;
+  --empty-state-message-mobile: 14px;
+  --error-message-desktop: 14px;
+  --error-message-mobile: 12px;
+  --listing-info-desktop: 16px;
+  --listing-info-mobile: 12px;
+  --body-text-desktop: 18px;
+  --body-text-mobile: 12px;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--background1);
+  margin: 0;
+  padding: 0;
+  background-color: var(--background1);
 }
 
 .container {
-    width: 100%;
-    margin: 0;
-  }
+  width: 100%;
+  margin: 0;
+}
 
 .listing-container {
-    background-image: url(/png/img_background@3x.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
+  background-image: url(/png/img_background@3x.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
 }

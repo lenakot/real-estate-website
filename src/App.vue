@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-if="loaded">
+  <div v-if="loaded" class="container">
     <Header />
     <router-view />
   </div>
@@ -10,25 +10,24 @@
 </template>
 
 <script setup>
-import Header from '@/components/Layout/Header.vue'
-import Preloader from '@/components//Preloader.vue'
-import { useHousesStore } from '@/stores/houseStore.js'
-import { onBeforeMount, ref } from 'vue'
-const housesStore = useHousesStore()
-const loaded = ref(false)
-const error = ref(false)
+import Header from "@/components/Layout/Header.vue";
+import Preloader from "@/components//Preloader.vue";
+import { useHousesStore } from "@/stores/houseStore.js";
+import { onBeforeMount, ref } from "vue";
+const housesStore = useHousesStore();
+const loaded = ref(false);
+const error = ref(false);
 
 onBeforeMount(async () => {
   try {
-    await housesStore.getHousesList()
-    loaded.value = true
+    await housesStore.getHousesList();
+    loaded.value = true;
   } catch (e) {
-    error.value = true
+    error.value = true;
   }
-})
-
+});
 </script>
 
-<style lang='scss' scoped>
-@import './assets/styles/global.scss'
+<style lang="scss" scoped>
+@import "./assets/styles/global.scss";
 </style>
