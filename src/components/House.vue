@@ -7,39 +7,36 @@
     />
     <div class="house-description">
       <router-link :to="`/house/${house.id}`" class="house-description-street">
-        {{ house.location.street }}</router-link
-      >
+        {{ house.location.street }}
+      </router-link>
+
       <div class="house-description-price">€{{ house.price }}</div>
       <div class="house-description-index">
         {{ house.location.zip }} {{ house.location.city }}
       </div>
       <div class="house-description-block">
-        <img
-          class="house-description-block__icon"
-          src="/png/ic_bed@3x.png"
-          alt="bed"
+        <HouseProperty
+          :icon-name="'ic_bed'"
+          :alt="'bed'"
+          :title="`${house.rooms.bedrooms}`"
+          preview
         />
-        <span class="house-description-block__title">{{
-          house.rooms.bedrooms
-        }}</span>
-
-        <img
-          class="house-description-block__icon"
-          src="/png/ic_bath@3x.png"
-          alt="bath"
+        <HouseProperty
+          :icon-name="'ic_bath'"
+          :alt="'bath'"
+          :title="`${house.rooms.bathrooms}`"
+          preview
         />
-        <span class="house-description-block__title">{{
-          house.rooms.bathrooms
-        }}</span>
-
-        <img
-          class="house-description-block__icon"
-          src="/png/ic_size@3x.png"
-          alt="size"
+        <HouseProperty
+          :icon-name="'ic_size'"
+          :alt="'size'"
+          :title="`${house.size}m2`"
+          preview
         />
-        <span class="house-description-block__title">{{ house.size }} m2</span>
       </div>
     </div>
+
+    <!-- The ability to edit/delete a home if it was created by owner -->
     <div v-if="house.madeByMe" class="house-tools">
       <router-link :to="`/edit-listing/${house.id}`">
         <img src="/png/ic_edit@3x.png" alt="edit" class="house-tools__icon" />
@@ -62,6 +59,7 @@
 </template>
 
 <script setup>
+import HouseProperty from "@/components/UI/HouseProperty.vue";
 const props = defineProps({
   house: {
     type: Object,
@@ -145,28 +143,6 @@ const props = defineProps({
 
       @media screen and (max-width: 767px) {
         gap: 5px;
-      }
-
-      &__icon {
-        width: 25px;
-        height: 25px;
-        object-fit: contain;
-
-        @media screen and (max-width: 767px) {
-          width: 15px;
-          height: 15px;
-        }
-      }
-
-      &__title {
-        font-family: var(--open-sans);
-        font-size: var(--body-text-desktop);
-        color: var(--text-primary);
-        white-space: nowrap;
-
-        @media screen and (max-width: 767px) {
-          font-size: var(--body-text-mobile);
-        }
       }
     }
   }
