@@ -11,13 +11,15 @@
 
 <script setup>
 import Header from "@/components/Layout/Header.vue";
-import Preloader from "@/components//Preloader.vue";
+import Preloader from "@/components/UI/Preloader.vue";
 import { useHousesStore } from "@/stores/houseStore.js";
 import { onBeforeMount, ref } from "vue";
 const housesStore = useHousesStore();
 const loaded = ref(false);
 const error = ref(false);
 
+// Fetch the list of houses once to avoid extra requests during navigation.
+// Also, handle an error if cannot get houses for some reason
 onBeforeMount(async () => {
   try {
     await housesStore.getHousesList();

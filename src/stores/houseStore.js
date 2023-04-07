@@ -5,12 +5,15 @@ export const useHousesStore = defineStore("housesStore", {
   state: () => ({
     listOfHouses: [],
     search: "",
-    sortParam: "price", //default param
+    sortParam: "price", // Default param
   }),
   getters: {
     getHouseById: (state) => {
       return (id) => state.listOfHouses.find((house) => house.id == id);
     },
+
+    // Return filtered houses list based on house address and city name.
+    // The result list is sorted according to sorting params
     filter() {
       const filteredHouses = this.listOfHouses.filter(
         (house) =>
@@ -21,32 +24,33 @@ export const useHousesStore = defineStore("housesStore", {
             .toLowerCase()
             .includes(this.search.toLowerCase())
       );
-      if (this.sortParam == "") {
-        return filteredHouses;
-      } else {
-        return this.sort(filteredHouses);
-      }
+      return this.sort(filteredHouses);
     },
+
+    // Return sorted houses list according to sorting params
     sort: (state) => {
-      return (listToSort = state.listOfHouses) => {
+      return (houses = state.listOfHouses) => {
         if (state.sortParam == "price") {
-          return listToSort.sort(
+          return houses.sort(
             (prevHouse, currHouse) => prevHouse.price - currHouse.price
           );
         } else if (state.sortParam == "size") {
-          return listToSort.sort(
+          return houses.sort(
             (prevHouse, currHouse) => prevHouse.size - currHouse.size
           );
+        } else {
+          return houses;
         }
       };
     },
-    //Give max 3 reccomendation based on same city
+
+    // Return up to 3 recommendations based on the same city
     getRecommendations: (state) => {
       return (city, id) => {
-        const reccomendationList = state.listOfHouses.filter(
+        const recommendationList = state.listOfHouses.filter(
           (house) => house.location.city == city && house.id != id
         );
-        return reccomendationList.slice(0, 3);
+        return recommendationList.slice(0, 3);
       };
     },
   },

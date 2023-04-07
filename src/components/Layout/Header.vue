@@ -1,4 +1,5 @@
 <template>
+  <!-- Mobile version of header -->
   <div v-if="isMobile">
     <div class="header-mobile">
       <div class="header-mobile-menu">
@@ -15,6 +16,8 @@
       </div>
     </div>
   </div>
+
+  <!-- Desktop version of header -->
   <div v-else>
     <div class="header">
       <div class="header-menu">
@@ -49,10 +52,12 @@ const isMobile = useIsMobileVersion();
 const router = useRouter();
 
 function isActive(href) {
+  // Makes 'houses' tab active in all cases (creating/editing a home, viewing details, etc.)
+  // if the 'about' tab is not open
   if (router.currentRoute.value.path == "/about") {
     return href == "/about";
   }
-  return href != "/about"; // Makes 'houses' tab active in all cases (creating/editing a home, viewing details, etc.) if the 'about' tab is not open
+  return href != "/about";
 }
 </script>
 

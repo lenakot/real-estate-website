@@ -23,6 +23,7 @@ const props = defineProps({
 });
 const housesStore = useHousesStore();
 
+// Recommends 3 houses that are located in the same city
 const recommendedHouses = ref([]);
 onMounted(() => {
   recommendedHouses.value = housesStore.getRecommendations(
