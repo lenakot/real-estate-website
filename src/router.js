@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Index from "@/Views/Index.vue";
+import MainPage from "@/Views/MainPage.vue";
 import About from "@/Views/About.vue";
 import HouseDetails from "@/Views/HouseDetails.vue";
-import CreateNewListing from "@/Views/CreateNewListing.vue";
-import EditListing from "@/Views/EditListing.vue";
+import CreateNewHouse from "@/Views/CreateNewHouse.vue";
+import EditHouse from "@/Views/EditHouse.vue";
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: "/",
-      name: "Index",
-      component: Index,
+      name: "MainPage",
+      component: MainPage,
     },
     {
       path: "/about",
@@ -25,13 +25,13 @@ const router = createRouter({
     },
     {
       path: "/create-new-listing",
-      name: "CreateNewListing",
-      component: CreateNewListing,
+      name: "CreateNewHouse",
+      component: CreateNewHouse,
     },
     {
       path: "/edit-listing/:id",
-      name: "EditListing",
-      component: EditListing,
+      name: "EditHouse",
+      component: EditHouse,
     },
   ],
 });

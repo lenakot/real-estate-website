@@ -1,86 +1,74 @@
 <template>
-  <div class="main-page-wrapper">
-    <div class="header-wrapper">
-      <div class="header">
-        <div class="header-title">Houses</div>
-        <router-link
-          v-if="isMobile"
-          to="/create-new-listing"
-          class="header-create-list"
-        >
-          <img
-            class="header-create-list-image"
-            src="/png/ic_plus_grey@3x.png"
-            alt="plus"
-          />
-        </router-link>
-        <router-link v-else to="/create-new-listing" class="header-create-list">
-          <img
-            class="header-create-list-image"
-            src="/png/ic_plus_white@3x.png"
-            alt="plus"
-          /><span class="header-create-list-text">CREATE NEW</span>
-        </router-link>
-      </div>
-      <div class="search-and-sort">
-        <div class="search-wrapper">
-          <img
-            class="search-wrapper-image"
-            src="/png/ic_search@3x.png"
-            alt="search"
-          />
-          <input
-            ref="search"
-            v-model="housesStore.search"
-            class="search-wrapper-input"
-            type="text"
-            placeholder="Search for a house"
-            name="search"
-          />
-          <div
-            v-if="housesStore.search !== ''"
-            class="search-wrapper-input-clear"
-            @click="clearInput()"
-          ></div>
-        </div>
-        <div class="sort-wrapper">
-          <div
-            class="sort-wrapper-price sort-wrapper-title"
-            :class="{ active: housesStore.sortParam === 'price' }"
-            @click="sortByPrice"
-          >
-            Price
-          </div>
-          <div
-            class="sort-wrapper-size sort-wrapper-title"
-            :class="{ active: housesStore.sortParam === 'size' }"
-            @click="sortBySize"
-          >
-            Size
-          </div>
-        </div>
-      </div>
-      <div v-if="housesStore.search != ''" class="found">
-        Found: {{ housesStore.filter.length }}
-      </div>
-      <div v-if="housesStore.filter.length == 0" class="search-undefined">
+  <div class="header-wrapper">
+    <div class="header">
+      <div class="header-title">Houses</div>
+
+      <!-- Create new house button -->
+      <router-link
+        v-if="isMobile"
+        to="/create-new-listing"
+        class="header-create-list"
+      >
         <img
-          src="/png/img_empty_houses@3x.png"
-          alt="not found"
-          class="search-undefined-image"
+          class="header-create-list-image"
+          src="/png/ic_plus_grey@3x.png"
+          alt="plus"
         />
-        <div class="search-undefined-description">No results found.</div>
-        <div class="search-undefined-description">
-          Please try another keyword.
+      </router-link>
+      <router-link v-else to="/create-new-listing" class="header-create-list">
+        <img
+          class="header-create-list-image"
+          src="/png/ic_plus_white@3x.png"
+          alt="plus"
+        /><span class="header-create-list-text">CREATE NEW</span>
+      </router-link>
+    </div>
+
+    <div class="search-and-sort">
+      <!-- Search area -->
+      <div class="search-wrapper">
+        <img
+          class="search-wrapper-image"
+          src="/png/ic_search@3x.png"
+          alt="search"
+        />
+        <input
+          ref="search"
+          v-model="housesStore.search"
+          class="search-wrapper-input"
+          type="text"
+          placeholder="Search for a house"
+          name="search"
+        />
+        <div
+          v-if="housesStore.search !== ''"
+          class="search-wrapper-input-clear"
+          @click="clearInput()"
+        ></div>
+      </div>
+
+      <!-- Sort area (price and size buttons) -->
+      <div class="sort-wrapper">
+        <div
+          class="sort-wrapper-price sort-wrapper-title"
+          :class="{ active: housesStore.sortParam === 'price' }"
+          @click="sortByPrice"
+        >
+          Price
+        </div>
+        <div
+          class="sort-wrapper-size sort-wrapper-title"
+          :class="{ active: housesStore.sortParam === 'size' }"
+          @click="sortBySize"
+        >
+          Size
         </div>
       </div>
     </div>
-    <House v-for="house of housesStore.filter" :key="house.id" :house="house" />
   </div>
 </template>
 
 <script setup>
-import House from "@/components/House.vue";
 import { useHousesStore } from "@/stores/houseStore.js";
 import { useIsMobileVersion } from "@/mobileVersion.js";
 const isMobile = useIsMobileVersion();
@@ -94,24 +82,13 @@ function clearInput() {
 function sortByPrice() {
   housesStore.sortParam = "price";
 }
+
 function sortBySize() {
   housesStore.sortParam = "size";
 }
 </script>
 
 <style lang="scss" scoped>
-.main-page-wrapper {
-  margin: 40px 300px;
-
-  @media screen and (max-width: 1200px) {
-    margin: 40px 150px;
-  }
-
-  @media screen and (max-width: 767px) {
-    margin: 30px;
-  }
-}
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -175,9 +152,9 @@ function sortBySize() {
 }
 
 .search-wrapper {
-  width: 400px;
+  width: 350px;
   height: 40px;
-  padding: 8px 20px;
+  padding: 8px 10px;
   border-radius: 10px;
   background: var(--tertiary);
   display: flex;
@@ -200,7 +177,7 @@ function sortBySize() {
 
   &-input {
     background: var(--tertiary);
-    width: inherit;
+    width: 0px;
     border: none;
     font-family: var(--open-sans);
     font-size: var(--input-title-desktop);
@@ -234,6 +211,7 @@ function sortBySize() {
   height: 40px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  cursor: pointer;
 
   @media screen and (max-width: 767px) {
     width: auto;
@@ -271,46 +249,6 @@ function sortBySize() {
       font-size: var(--buttons-n-tabs-mobile);
       padding: 12px;
     }
-  }
-}
-
-.search-undefined {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: 20px 0;
-  height: 400px;
-  width: auto;
-
-  &-image {
-    width: auto;
-    height: inherit;
-    padding: 50px;
-    object-fit: contain;
-  }
-
-  &-description {
-    font-family: var(--open-sans);
-    font-size: var(--body-text-desktop);
-    color: var(--text-secondary);
-    font-weight: var(--regular);
-    text-align: center;
-
-    @media screen and (max-width: 767px) {
-      font-size: var(--body-text-mobile);
-      padding: 13px;
-    }
-  }
-}
-
-.found {
-  font-family: var(--open-sans);
-  font-size: var(--body-text-desktop);
-  color: var(--text-secondary);
-  font-weight: var(--regular);
-
-  @media screen and (max-width: 767px) {
-    font-size: var(--body-text-mobile);
   }
 }
 </style>

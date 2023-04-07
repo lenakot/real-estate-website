@@ -1,7 +1,7 @@
 <template>
-  <MainPage />
+  <HousesOverview />
 </template>
 
 <script setup>
-import MainPage from "@/components/MainPage.vue";
+import HousesOverview from "@/components/HousesOverview.vue";
 </script>

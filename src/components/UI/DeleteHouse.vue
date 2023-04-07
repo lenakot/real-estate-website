@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
-    <div class="grayBackground" @click="goBack"></div>
+    <div class="grayBackground" @click="emit('go-back')"></div>
+
+    <!-- Delete pop-up window -->
     <div class="delete">
       <div class="delete-title">Delete listing</div>
       <div class="delete-description">
@@ -13,11 +15,11 @@
           class="delete-buttons__button delete-buttons__button__yes"
           @click="housesStore.deleteHouse(house.id)"
         >
-          YES, DELETE</router-link
-        >
+          YES, DELETE
+        </router-link>
         <div
           class="delete-buttons__button delete-buttons__button__no"
-          @click="goBack"
+          @click="emit('go-back')"
         >
           GO BACK
         </div>
@@ -37,11 +39,8 @@ const props = defineProps({
   },
 });
 
+// Event that lets parent (house details) know that Delete popup was closed
 const emit = defineEmits(["go-back"]);
-
-function goBack() {
-  emit("go-back");
-}
 </script>
 
 <style lang="scss" scoped>
