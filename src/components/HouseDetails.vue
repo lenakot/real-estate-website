@@ -1,20 +1,10 @@
 <template>
   <div class="house-details-wrapper">
     <div class="back-block">
-      <router-link v-if="!isMobile" to="/" class="back-block-back">
-        <img
-          src="/png/ic_back_grey@3x.png"
-          alt="back"
-          class="back-block-back__icon"
-        />
-        <div class="back-block-back__title">Back to overview</div>
-      </router-link>
-      <router-link v-else to="/" class="back-block-back">
-        <img
-          src="/png/ic_back_white@3x.png"
-          alt="back"
-          class="back-block-back__icon"
-      /></router-link>
+      <!-- Go back to houses overview -->
+      <BackButton white />
+
+      <!-- Edit and delete buttons for mobile version -->
       <div
         v-if="currentHouse.madeByMe && isMobile"
         class="house-detail-description__tools"
@@ -25,6 +15,7 @@
             alt="edit"
             class="house-detail-description__tools__icon"
         /></router-link>
+
         <div @click="toogleDeleteBlock">
           <img
             src="/png/ic_delete_white@3x.png"
@@ -34,15 +25,20 @@
         </div>
       </div>
       <!-- To position an arrow without using absolute positioning, I added an empty <div> element at the bottom of a
-                container. This empty <div> element will act as a spacer to prevent the arrow from being centered if the
-                    container is not owned by the arrow's owner. -->
+           container. This empty <div> element will act as a spacer to prevent the arrow from being centered if the
+           container is not owned by the arrow's owner -->
       <div v-else></div>
+
+      <!-- Pop-up window -->
       <div v-if="isVisibleDeleteBlock">
         <DeleteHouse :house="currentHouse" @go-back="toogleDeleteBlock" />
       </div>
     </div>
+
+    <!-- Full house description -->
     <div class="house-detail-container">
       <div class="house-detail">
+        <!-- Image -->
         <div class="house-detail-image">
           <img
             class="house-detail-image__img"
@@ -50,6 +46,8 @@
             :alt="`${currentHouse.location?.street}`"
           />
         </div>
+
+        <!-- Main details about house -->
         <div class="house-detail-description">
           <div class="house-detail-description__short">
             <div class="house-detail-description__short__block">
@@ -59,83 +57,50 @@
             </div>
 
             <div class="house-detail-description__short__block">
-              <div class="house-detail-description__short__block__text_wrapper">
-                <img
-                  class="house-detail-description__short__block__icon"
-                  src="/png/ic_location@3x.png"
-                  alt="location"
-                />
-                <span class="house-detail-description__short__block__title"
-                  >{{ currentHouse.location?.zip }}
-                  {{ currentHouse.location?.city }}</span
-                >
-              </div>
+              <HouseProperty
+                :icon-name="'ic_location'"
+                :alt="'location'"
+                :title="`${currentHouse.location?.zip}
+                  ${currentHouse.location?.city}`"
+              />
             </div>
             <div class="house-detail-description__short__block">
-              <div class="house-detail-description__short__block__text_wrapper">
-                <img
-                  class="house-detail-description__short__block__icon"
-                  src="/png/ic_price@3x.png"
-                  alt="price"
-                />
-                <span class="house-detail-description__short__block__title">{{
-                  currentHouse.price
-                }}</span>
-              </div>
-              <div class="house-detail-description__short__block__text_wrapper">
-                <img
-                  class="house-detail-description__short__block__icon"
-                  src="/png/ic_size@3x.png"
-                  alt="size"
-                />
-                <span class="house-detail-description__short__block__title"
-                  >{{ currentHouse.size }}m2</span
-                >
-              </div>
-              <div class="house-detail-description__short__block__text_wrapper">
-                <img
-                  class="house-detail-description__short__block__icon"
-                  src="/png/ic_construction_date@3x.png"
-                  alt="construction_date"
-                />
-                <span class="house-detail-description__short__block__title"
-                  >Built in {{ currentHouse.constructionYear }}</span
-                >
-              </div>
+              <HouseProperty
+                :icon-name="'ic_price'"
+                :alt="'price'"
+                :title="`${currentHouse.price}`"
+              />
+
+              <HouseProperty
+                :icon-name="'ic_size'"
+                :alt="'size'"
+                :title="`${currentHouse.size}m2`"
+              />
+
+              <HouseProperty
+                :icon-name="'ic_construction_date'"
+                :alt="'construction_date'"
+                :title="`Built in ${currentHouse.constructionYear}`"
+              />
             </div>
             <div class="house-detail-description__short__block">
-              <div class="house-detail-description__short__block__text_wrapper">
-                <img
-                  class="house-detail-description__short__block__icon"
-                  src="/png/ic_bed@3x.png"
-                  alt="bed"
-                />
-                <span class="house-detail-description__short__block__title">{{
-                  currentHouse.rooms?.bedrooms
-                }}</span>
-              </div>
+              <HouseProperty
+                :icon-name="'ic_bed'"
+                :alt="'bed'"
+                :title="`${currentHouse.rooms?.bedrooms}`"
+              />
 
-              <div class="house-detail-description__short__block__text_wrapper">
-                <img
-                  class="house-detail-description__short__block__icon"
-                  src="/png/ic_bath@3x.png"
-                  alt="bath"
-                />
-                <span class="house-detail-description__short__block__title">{{
-                  currentHouse.rooms?.bathrooms
-                }}</span>
-              </div>
+              <HouseProperty
+                :icon-name="'ic_bath'"
+                :alt="'bath'"
+                :title="`${currentHouse.rooms?.bathrooms}`"
+              />
 
-              <div class="house-detail-description__short__block__text_wrapper">
-                <img
-                  class="house-detail-description__short__block__icon"
-                  src="/png/ic_garage@3x.png"
-                  alt="garage"
-                />
-                <span class="house-detail-description__short__block__title">{{
-                  currentHouse.hasGarage ? "Yes" : "No"
-                }}</span>
-              </div>
+              <HouseProperty
+                :icon-name="'ic_garage'"
+                :alt="'garage'"
+                :title="`${currentHouse.hasGarage ? 'Yes' : 'No'}`"
+              />
             </div>
           </div>
           <div
@@ -160,11 +125,15 @@
             </div>
           </div>
         </div>
+
+        <!-- Description -->
         <div class="house-detail-description-full">
           {{ currentHouse.description }}
         </div>
       </div>
-      <div class="reccomendation-block">
+
+      <!-- Recommendation based on the same city -->
+      <div class="recommendation-block">
         <RecommendationsList
           :city="currentHouse.location?.city"
           :current-house-id="houseId"
@@ -175,8 +144,10 @@
 </template>
 
 <script setup>
+import HouseProperty from "@/components/UI/HouseProperty.vue";
 import RecommendationsList from "@/components/RecommendationsList.vue";
-import DeleteHouse from "@/components/DeleteHouse.vue";
+import BackButton from "@/components/UI/BackButton.vue";
+import DeleteHouse from "@/components/UI/DeleteHouse.vue";
 import { ref, onMounted, watchEffect } from "vue";
 import { useHousesStore } from "@/stores/houseStore.js";
 import { useRoute, useRouter } from "vue-router";
@@ -238,26 +209,7 @@ onMounted(() => {
     display: flex;
     justify-content: space-around;
     gap: 65%;
-  }
-
-  &-back {
-    display: flex;
-    justify-content: flex-start;
     align-items: center;
-    gap: 10px;
-    text-decoration: none;
-
-    &__icon {
-      width: 25px;
-      height: 25px;
-    }
-
-    &__title {
-      font-family: var(--montserrat);
-      font-size: var(--back-button-label-desktop);
-      font-weight: var(--semibold);
-      color: var(--text-primary);
-    }
   }
 }
 
@@ -323,7 +275,7 @@ onMounted(() => {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 10px;
+      gap: 15px;
       white-space: nowrap;
 
       @media screen and (max-width: 767px) {
@@ -352,36 +304,6 @@ onMounted(() => {
 
       &__block {
         display: flex;
-
-        &__text_wrapper {
-          display: flex;
-          gap: 5px;
-          margin-right: 10px;
-          align-items: center;
-        }
-
-        &__icon {
-          width: 20px;
-          height: 20px;
-          object-fit: contain;
-          margin: 5px;
-        }
-
-        &__title {
-          font-family: var(--open-sans);
-          font-size: var(--listing-info-desktop);
-          font-weight: var(--semibold);
-          color: var(--text-secondary);
-          white-space: nowrap;
-
-          @media screen and (max-width: 1200px) {
-            font-size: 14px;
-          }
-
-          @media screen and (max-width: 767px) {
-            font-size: var(--listing-info-mobile);
-          }
-        }
       }
     }
 
@@ -424,7 +346,7 @@ onMounted(() => {
   }
 }
 
-.reccomendation-block {
+.recommendation-block {
   transform: scale(0.8);
 
   @media screen and (max-width: 767px) {
