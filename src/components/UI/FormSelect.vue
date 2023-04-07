@@ -103,7 +103,7 @@ const props = defineProps({
     display: block;
     position: absolute;
     background: var(--background2);
-    top: 33px;
+    top: 31px;
     right: 2px;
     width: 30px;
     height: 45px;
